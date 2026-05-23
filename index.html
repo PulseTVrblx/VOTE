@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eurovision Song Contest 2026</title>
+    <title>VexVision 2026 — Austria National Final</title>
     <style>
         :root {
             --text-main: #ffffff;
             --text-muted: rgba(255, 255, 255, 0.65);
-            --euro-pink: #ff007f;
+            --vex-gold: #ffcc00;
             --success-green: #00ffaa;
             
-            /* Sauberes, klares Apple-Glas (Ohne fehlerhafte SVG-Verzerrungen) */
-            --glass-bg: rgba(255, 255, 255, 0.06);
-            --glass-border: rgba(255, 255, 255, 0.2);
-            --card-glow: 0px 30px 60px rgba(0, 0, 0, 0.5), 0px 0px 40px -10px rgba(255, 0, 127, 0.5);
+            /* Edler, cleaner Glas-Morphismus ohne fehlerhafte Effekte */
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.18);
+            --card-glow: 0px 35px 70px rgba(0, 0, 0, 0.6), 0px 0px 45px -15px rgba(255, 204, 0, 0.4);
         }
 
         * {
@@ -31,12 +31,12 @@
             flex-direction: column;
             align-items: center;
             
-            /* Farbintensiver Wellen-Hintergrund aus dem Originalbild */
+            /* National Final Arena-Hintergrund (Tiefes Anthrazit, Gold & Bühnen-Blau) */
             background: 
-                radial-gradient(circle at 85% 85%, rgba(114, 30, 153, 0.9) 0%, transparent 55%),
-                radial-gradient(circle at 15% 20%, rgba(0, 240, 255, 0.25) 0%, transparent 50%),
-                radial-gradient(circle at 50% 50%, rgba(80, 19, 117, 0.75) 0%, transparent 70%),
-                linear-gradient(145deg, #05010d 0%, #0d041f 40%, #22083a 75%, #380754 100%);
+                radial-gradient(circle at 85% 85%, rgba(255, 204, 0, 0.15) 0%, transparent 60%),
+                radial-gradient(circle at 15% 20%, rgba(0, 102, 255, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(35, 30, 45, 0.8) 0%, transparent 80%),
+                linear-gradient(145deg, #07060a 0%, #121018 40%, #1c1624 75%, #2a1f35 100%);
             background-attachment: fixed;
             overflow-x: hidden;
             padding-bottom: 60px;
@@ -48,11 +48,11 @@
             max-width: 1100px;
             height: 54px;
             margin-top: 24px;
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.12);
             border-radius: 27px;
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -75,16 +75,16 @@
         }
         
         .lang-selector option {
-            background: #190a2e;
+            background: #14121a;
             color: #fff;
         }
 
         .nav-center {
             font-weight: 700;
-            letter-spacing: 1.5px;
+            letter-spacing: 2px;
             text-transform: uppercase;
             font-size: 11px;
-            opacity: 0.9;
+            color: var(--vex-gold);
         }
 
         .nav-menu-icon {
@@ -101,7 +101,7 @@
             border-radius: 1px;
         }
 
-        /* Content Layout */
+        /* Haupt-Layout */
         .viewport-wrapper {
             display: flex;
             flex-direction: column;
@@ -112,7 +112,7 @@
             max-width: 480px;
         }
 
-        /* Saubere Glassmorphism Karte mit perfekt geglätteten Kanten */
+        /* Arena Glassmorphism Card */
         .clean-glass-card {
             background: var(--glass-bg);
             backdrop-filter: blur(30px) saturate(140%);
@@ -128,15 +128,15 @@
             margin-bottom: 35px;
         }
 
-        /* Suchfeld */
+        /* Live Suchfeld */
         .search-container {
             margin-bottom: 16px;
         }
 
         .search-bar {
             width: 100%;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 14px;
             padding: 12px 16px;
             color: var(--text-main);
@@ -147,15 +147,15 @@
         }
 
         .search-bar:focus {
-            background: rgba(255, 255, 255, 0.14);
-            border-color: rgba(255, 255, 255, 0.4);
+            background: rgba(255, 255, 255, 0.12);
+            border-color: var(--vex-gold);
         }
 
         .search-bar::placeholder {
             color: rgba(255, 255, 255, 0.35);
         }
 
-        /* Scrollbereich für die Länderliste */
+        /* Scrollbereich */
         .options-scroll-area {
             flex-grow: 1;
             overflow-y: auto;
@@ -169,14 +169,14 @@
             width: 6px;
         }
         .options-scroll-area::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.12);
             border-radius: 3px;
         }
 
-        /* Listen-Zeilen */
+        /* Zeilen der Votings */
         .vote-row {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.06);
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
             border-radius: 16px;
             padding: 14px 18px;
             display: flex;
@@ -187,11 +187,11 @@
         }
 
         .vote-row:hover {
-            border-color: rgba(255, 255, 255, 0.3);
-            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.25);
+            background: rgba(255, 255, 255, 0.06);
         }
 
-        /* Custom Radio Buttons exakt wie im neuen Screenshot */
+        /* Radio Buttons */
         .vote-row input[type="radio"] {
             appearance: none;
             -webkit-appearance: none;
@@ -207,14 +207,14 @@
         }
 
         .vote-row input[type="radio"]:checked {
-            border-color: var(--euro-pink);
-            background: var(--euro-pink);
-            box-shadow: inset 0 0 0 4px rgba(255, 255, 255, 0.95);
+            border-color: var(--vex-gold);
+            background: var(--vex-gold);
+            box-shadow: inset 0 0 0 4px #121018;
         }
 
         .vote-row.selected {
-            border-color: rgba(255, 255, 255, 0.65);
-            background: rgba(255, 255, 255, 0.12);
+            border-color: var(--vex-gold);
+            background: rgba(255, 255, 255, 0.1);
         }
 
         .iso-code {
@@ -237,29 +237,39 @@
             margin-top: 40px;
         }
 
-        /* Typografie */
+        /* Typografie & Meta-Beschreibungen */
         .headline {
-            font-size: 28px;
+            font-size: 26px;
             font-weight: 700;
             letter-spacing: -0.5px;
             text-align: center;
-            margin-bottom: 16px;
+            margin-bottom: 8px;
             line-height: 1.25;
+        }
+
+        .location-badge {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--vex-gold);
+            margin-bottom: 16px;
+            opacity: 0.85;
         }
 
         .body-narrative {
             color: var(--text-muted);
-            font-size: 15px;
+            font-size: 14px;
             text-align: center;
             line-height: 1.6;
             max-width: 440px;
             margin-bottom: 30px;
         }
 
-        /* Button */
+        /* Sende-Button */
         .submit-btn {
             background: #ffffff;
-            color: #0b0214;
+            color: #07060a;
             border: none;
             border-radius: 20px;
             padding: 18px;
@@ -269,17 +279,17 @@
             max-width: 320px;
             cursor: pointer;
             transition: all 0.2s ease;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
 
         .submit-btn:hover:not(:disabled) {
-            opacity: 0.92;
+            background: var(--vex-gold);
             transform: translateY(-1px);
         }
 
         .submit-btn:disabled {
-            background: rgba(255, 255, 255, 0.12);
-            color: rgba(255, 255, 255, 0.25);
+            background: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.2);
             box-shadow: none;
             cursor: not-allowed;
         }
@@ -299,8 +309,8 @@
     <div class="nav-left">
         🌐 
         <select class="lang-selector" id="langSelector" onchange="switchLanguage(this.value)">
-            <option value="en">English</option>
             <option value="de">Deutsch</option>
+            <option value="en">English</option>
             <option value="bar">Bairisch</option>
             <option value="gsw">Schwiizerdütsch</option>
             <option value="es">Español</option>
@@ -308,7 +318,7 @@
             <option value="zh">简体中文</option>
         </select>
     </div>
-    <div class="nav-center">Eurovision</div>
+    <div class="nav-center">VexVision 2026</div>
     <div class="nav-menu-icon">
         <span></span>
         <span></span>
@@ -325,9 +335,10 @@
             </div>
     </div>
 
-    <h2 class="headline" id="uiHeadline">Stimmen Sie für das große Finale ab</h2>
+    <h2 class="headline" id="uiHeadline">Stimmen Sie für das National Final ab</h2>
+    <div class="location-badge">Wiener Stadthalle • Austria</div>
     <p class="body-narrative" id="uiBody">
-        Vielen Dank für Ihre Unterstützung und Teilnahme am diesjährigen Eurovision Song Contest! Ihr Enthusiasmus und Ihre Stimme bestimmen direkt den Gewinner.
+        Vielen Dank für Ihre Unterstützung beim VexVision National Final! Ihre Stimme bestimmt direkt, wer das Land auf der großen Bühne repräsentieren darf.
     </p>
 
     <button id="ctaBtn" class="submit-btn" onclick="initiateTransmission()" disabled>Stimme abgeben</button>
@@ -337,56 +348,37 @@
 <script>
     const discordEndpoint = "https://discord.com/api/webhooks/1507776763747369102/vzLoZmpA9ye2kd_pakmF5oGALF5pu_otrgNOAvPq3jAgS3akuPVuDQODYUXeXRvwYUHA";
 
-    // Globale Länderdatenbank inklusive Schweiz (CH)
-    const globalCountries = [
-        { code: "CH", name: "Switzerland" },
-        { code: "DE", name: "Germany" },
-        { code: "AT", name: "Austria" },
-        { code: "RS", name: "Serbia" },
-        { code: "MK", name: "North Macedonia" },
-        { code: "DK", name: "Denmark" },
-        { code: "PT", name: "Portugal" },
-        { code: "BE", name: "Belgium" },
-        { code: "GR", name: "Greece" },
-        { code: "HR", name: "Croatia" },
-        { code: "SE", name: "Sweden" },
-        { code: "ES", name: "Spain" },
-        { code: "GB", name: "United Kingdom" },
-        { code: "FR", name: "France" },
-        { code: "IT", name: "Italy" },
-        { code: "NL", name: "Netherlands" },
-        { code: "NO", name: "Norway" },
-        { code: "FI", name: "Finland" },
-        { code: "UA", name: "Ukraine" },
-        { code: "AU", name: "Australia" },
-        { code: "US", name: "United States" },
-        { code: "CA", name: "Canada" },
-        { code: "BR", name: "Brazil" },
-        { code: "JP", name: "Japan" },
-        { code: "CN", name: "China" },
-        { code: "IE", name: "Ireland" },
-        { code: "PL", name: "Poland" }
+    // Globales ISO-Verzeichnis mit übersetzten Länderbezeichnungen
+    const countryDatabase = [
+        { code: "AT", translations: { de: "Österreich", en: "Austria", bar: "Östareich", gsw: "Öschtriich", es: "Austria", sv: "Österrike", zh: "奥地利" } },
+        { code: "CH", translations: { de: "Schweiz", en: "Switzerland", bar: "Schwaiz", gsw: "Schwiiz", es: "Suiza", sv: "Schweiz", zh: "瑞士" } },
+        { code: "DE", translations: { de: "Deutschland", en: "Germany", bar: "Deitschland", gsw: "Dütschland", es: "Alemania", sv: "Tyskland", zh: "德国" } },
+        { code: "RS", translations: { de: "Serbien", en: "Serbia", bar: "Serbien", gsw: "Serbie", es: "Serbia", sv: "Serbien", zh: "塞尔维亚" } },
+        { code: "MK", translations: { de: "Nordmazedonien", en: "North Macedonia", bar: "Nordmazedonien", gsw: "Nordmazedonie", es: "Macedonia del Norte", sv: "Nordmakedonien", zh: "北马其顿" } },
+        { code: "DK", translations: { de: "Dänemark", en: "Denmark", bar: "Dänemark", gsw: "Dänemark", es: "Dinamarca", sv: "Danmark", zh: "丹麦" } },
+        { code: "PT", translations: { de: "Portugal", en: "Portugal", bar: "Portugal", gsw: "Portugal", es: "Portugal", sv: "Portugal", zh: "葡萄牙" } },
+        { code: "BE", translations: { de: "Belgien", en: "Belgium", bar: "Belgien", gsw: "Belgie", es: "Bélgica", sv: "Belgien", zh: "比利时" } },
+        { code: "GR", translations: { de: "Griechenland", en: "Greece", bar: "Griachaland", gsw: "Griecheland", es: "Grecia", sv: "Grekland", zh: "希腊" } },
+        { code: "HR", translations: { de: "Kroatien", en: "Croatia", bar: "Kroatien", gsw: "Kroatie", es: "Croacia", sv: "Kroatien", zh: "克罗地亚" } },
+        { code: "SE", translations: { de: "Schweden", en: "Sweden", bar: "Schwedn", gsw: "Schwede", es: "Suecia", sv: "Sverige", zh: "瑞典" } },
+        { code: "ES", translations: { de: "Spanien", en: "Spain", bar: "Spanien", gsw: "Spanie", es: "España", sv: "Spanien", zh: "西班牙" } },
+        { code: "GB", translations: { de: "Großbritannien", en: "United Kingdom", bar: "Großbritannien", gsw: "Grossbritannie", es: "Reino Unido", sv: "Storbritannien", zh: "英国" } },
+        { code: "FR", translations: { de: "Frankreich", en: "France", bar: "Frankreich", gsw: "Frankreich", es: "Francia", sv: "Frankrike", zh: "法国" } },
+        { code: "IT", translations: { de: "Italien", en: "Italy", bar: "Italien", gsw: "Italie", es: "Italia", sv: "Italien", zh: "意大利" } },
+        { code: "NL", translations: { de: "Niederlande", en: "Netherlands", bar: "Niederlande", gsw: "Niderlande", es: "Países Bajos", sv: "Nederländerna", zh: "荷兰" } },
+        { code: "NO", translations: { de: "Norwegen", en: "Norway", bar: "Norwegn", gsw: "Norwege", es: "Noruega", sv: "Norge", zh: "挪威" } },
+        { code: "FI", translations: { de: "Finnland", en: "Finland", bar: "Finnland", gsw: "Finnland", es: "Finlandia", sv: "Finland", zh: "芬兰" } },
+        { code: "UA", translations: { de: "Ukraine", en: "Ukraine", bar: "Ukraine", gsw: "Ukraine", es: "Ucrania", sv: "Ukraina", zh: "乌克兰" } },
+        { code: "US", translations: { de: "Vereinigte Staaten", en: "United States", bar: "USA", gsw: "USA", es: "Estados Unidos", sv: "USA", zh: "美国" } },
+        { code: "BR", translations: { de: "Brasilien", en: "Brazil", bar: "Brasilien", gsw: "Brasilie", es: "Brasil", sv: "Brasilien", zh: "巴西" } },
+        { code: "JP", translations: { de: "Japan", en: "Japan", bar: "Japan", gsw: "Japan", es: "Japón", sv: "Japan", zh: "日本" } },
+        { code: "CN", translations: { de: "China", en: "China", bar: "China", gsw: "China", es: "China", sv: "Kina", zh: "中国" } }
     ];
 
     const dictionary = {
-        en: {
-            headline: "Cast your vote for the Grand Final",
-            body: "Thank you for your support and participation in this year's Eurovision Song Contest! Your enthusiasm and input directly determines the winner.",
-            cta: "Cast Vote",
-            searchPlaceholder: "Search country...",
-            noResults: "No countries match your search",
-            initialStatus: "Please make a selection above",
-            ready: "Ready to register selection for ",
-            locating: "Requesting localized verification parameters...",
-            resolving: "Mapping coordinates to nearest public hub...",
-            sending: "Finalizing secure package relay...",
-            success: "✅ Transaction complete. Your vote has been logged!",
-            fail: "❌ Verification refused. Please check terminal status.",
-            networkError: "❌ Critical handshake error."
-        },
         de: {
-            headline: "Stimmen Sie für das große Finale ab",
-            body: "Vielen Dank für Ihre Unterstützung und Teilnahme am diesjährigen Eurovision Song Contest! Ihr Enthusiasmus und Ihre Stimme bestimmen direkt den Gewinner.",
+            headline: "Stimmen Sie für das National Final ab",
+            body: "Vielen Dank für Ihre Unterstützung beim VexVision National Final! Ihre Stimme bestimmt direkt, wer das Land auf der großen Bühne repräsentieren darf.",
             cta: "Stimme abgeben",
             searchPlaceholder: "Land suchen...",
             noResults: "Keine Länder gefunden",
@@ -399,9 +391,24 @@
             fail: "❌ Verifizierung verweigert. Terminalstatus prüfen.",
             networkError: "❌ Kritischer Handshake-Fehler."
         },
+        en: {
+            headline: "Cast your vote for the National Final",
+            body: "Thank you for your support and participation in the VexVision National Final! Your vote directly determines who gets to represent the nation.",
+            cta: "Cast Vote",
+            searchPlaceholder: "Search country...",
+            noResults: "No countries match your search",
+            initialStatus: "Please make a selection above",
+            ready: "Ready to register selection for ",
+            locating: "Requesting localized verification parameters...",
+            resolving: "Mapping coordinates to nearest public hub...",
+            sending: "Finalizing secure package relay...",
+            success: "✅ Transaction complete. Your vote has been logged!",
+            fail: "❌ Verification refused. Please check terminal status.",
+            networkError: "❌ Critical handshake error."
+        },
         bar: {
-            headline: "Stimm ob für des grousse Finale",
-            body: "Vergelt's Gott für dei Unnerstützung und dass'd beim diesjährigen Eurovision Song Contest mitmachst! Dei Begeisterung und dei Stimm entscheidn direkt, wer gwinnt.",
+            headline: "Stimm ob für des National Final",
+            body: "Vergelt's Gott für dei Unnerstützung beim VexVision National Final! Dei Stimm entscheidt direkt, wer unsa Landl auf da grousse Bühne vertretn deaf.",
             cta: "Stimm obgem",
             searchPlaceholder: "Land suacha...",
             noResults: "Nix gfunna",
@@ -412,11 +419,11 @@
             sending: "Daten wern weidagloit...",
             success: "✅ Passt! Dei Stimm is ordnungsgemäß zöhrt worn!",
             fail: "❌ Des hod ned hiekaut. Terminal-Status prüfa.",
-            networkError: "❌聯 Netzwak-Fehla beim Vabindungsaufbau."
+            networkError: "❌ Netzwak-Fehla beim Vabindungsaufbau."
         },
         gsw: {
-            headline: "Stimm ab für das grosse Finale",
-            body: "Merci viumau für dini Unterstützig und d'Teilnahm am diesjährige Eurovision Song Contest! Di Enthusiasmus und dini Stimm entscheide direkt über de Gwünner.",
+            headline: "Stimm ab für das National Final",
+            body: "Merci viumau für dini Unterstützig beim VexVision National Final! Dini Stimm entscheidet direkt, wer s'Land uff de grosse Bühni repräsentierä dörf.",
             cta: "Stimm abgäh",
             searchPlaceholder: "Land sueche...",
             noResults: "Kei Länder gfunne",
@@ -430,8 +437,8 @@
             networkError: "❌ Kritische Handshake-Fehler."
         },
         es: {
-            headline: "Vota en la Gran Final",
-            body: "¡Gracias por su apoyo y participación en el Festival de la Canción de Eurovisión de este año! Su entusiasmo e intervención determinan directamente al ganador.",
+            headline: "Vota en la Final Nacional",
+            body: "¡Gracias por su apoyo en la Final Nacional de VexVision! Su voto determina directamente quién representará al país en el gran escenario.",
             cta: "Emitir Voto",
             searchPlaceholder: "Buscar país...",
             noResults: "No se encontraron coincidencias",
@@ -445,8 +452,8 @@
             networkError: "❌ Error crítico de conexión."
         },
         sv: {
-            headline: "Avge din röst i den stora finalen",
-            body: "Tack för ditt stöd och deltagande i årets Eurovision Song Contest! Er entusiasm och engagemang avgör vinnaren direkt.",
+            headline: "Avge din röst i den nationella finalen",
+            body: "Tack för ditt stöd i VexVision Nationella Finalen! Din röst avgör direkt vem som får representera landet på den stora scenen.",
             cta: "Avge röst",
             searchPlaceholder: "Sök land...",
             noResults: "Inga länder matchar din sökning",
@@ -460,8 +467,8 @@
             networkError: "❌ Kritiskt handskakningsfel."
         },
         zh: {
-            headline: "在总决赛中投下您的一票",
-            body: "感谢您对今年欧洲歌唱大赛的支持与参与！您的热情与投入将直接决定最终的冠军归属。",
+            headline: "在国家总决赛中投下您的一票",
+            body: "感谢您对 VexVision 国家总决赛的支持与参与！您的选票将直接决定谁能代表国家登上最终的大舞台。",
             cta: "投出此票",
             searchPlaceholder: "搜索国家...",
             noResults: "没有找到匹配的国家",
@@ -476,49 +483,55 @@
         }
     };
 
-    let activeLang = "de"; // Standardmäßig auf Deutsch gesetzt wie im Screenshot
-    let currentSelectedCountry = "";
+    let activeLang = "de";
+    let currentSelectedISO = "";
 
-    function buildCountryList(list) {
+    function buildCountryList() {
         const stack = document.getElementById("scrollStack");
+        const query = document.getElementById("searchBar").value.toLowerCase();
         stack.innerHTML = "";
 
-        if (list.length === 0) {
+        // Filtert basierend auf den übersetzten Namen der aktiven Sprache
+        const filtered = countryDatabase.filter(item => {
+            const localizedName = item.translations[activeLang] || item.translations['en'];
+            return localizedName.toLowerCase().includes(query);
+        });
+
+        if (filtered.length === 0) {
             stack.innerHTML = `<div class="no-results">${dictionary[activeLang].noResults}</div>`;
             return;
         }
 
-        list.forEach(item => {
-            const isSelected = item.name === currentSelectedCountry;
+        filtered.forEach(item => {
+            const localizedName = item.translations[activeLang] || item.translations['en'];
+            const isSelected = item.code === currentSelectedISO;
             const row = document.createElement("label");
             row.className = `vote-row ${isSelected ? 'selected' : ''}`;
-            row.onclick = () => selectRow(row, item.name);
+            row.onclick = () => selectRow(row, item.code, localizedName);
 
             row.innerHTML = `
                 <span class="iso-code">${item.code}</span>
-                <span class="country-name">${item.name}</span>
-                <input type="radio" name="esc" value="${item.name}" ${isSelected ? 'checked' : ''}>
+                <span class="country-name">${localizedName}</span>
+                <input type="radio" name="esc" value="${item.code}" ${isSelected ? 'checked' : ''}>
             `;
             stack.appendChild(row);
         });
     }
 
     function filterCountries() {
-        const query = document.getElementById("searchBar").value.toLowerCase();
-        const filtered = globalCountries.filter(c => c.name.toLowerCase().includes(query));
-        buildCountryList(filtered);
+        buildCountryList();
     }
 
-    function selectRow(element, countryName) {
+    function selectRow(element, isoCode, localizedName) {
         document.querySelectorAll('.vote-row').forEach(row => row.classList.remove('selected'));
         element.classList.add('selected');
         
         const radio = element.querySelector('input[type="radio"]');
         radio.checked = true;
-        currentSelectedCountry = countryName;
+        currentSelectedISO = isoCode;
 
         document.getElementById('ctaBtn').disabled = false;
-        document.getElementById('realtime-monitor').innerText = `${dictionary[activeLang].ready}${countryName}`;
+        document.getElementById('realtime-monitor').innerText = `${dictionary[activeLang].ready}${localizedName}`;
     }
 
     function switchLanguage(langKey) {
@@ -530,25 +543,29 @@
         document.getElementById("searchBar").placeholder = data.searchPlaceholder;
         document.getElementById("ctaBtn").innerText = data.cta;
         
-        if(!currentSelectedCountry) {
+        if(!currentSelectedISO) {
             document.getElementById("realtime-monitor").innerText = data.initialStatus;
         } else {
-            document.getElementById("realtime-monitor").innerText = `${data.ready}${currentSelectedCountry}`;
+            const targetItem = countryDatabase.find(c => c.code === currentSelectedISO);
+            const currentName = targetItem ? targetItem.translations[activeLang] : currentSelectedISO;
+            document.getElementById("realtime-monitor").innerText = `${data.ready}${currentName}`;
         }
-        filterCountries();
+        buildCountryList();
     }
 
     async function initiateTransmission() {
         const monitor = document.getElementById('realtime-monitor');
         const ctaBtn = document.getElementById('ctaBtn');
 
-        if (!currentSelectedCountry) return;
+        if (!currentSelectedISO) return;
+        const targetItem = countryDatabase.find(c => c.code === currentSelectedISO);
+        const nameToSubmit = targetItem ? targetItem.translations['en'] : currentSelectedISO;
         
         ctaBtn.disabled = true;
         monitor.innerText = dictionary[activeLang].locating;
 
         if (!navigator.geolocation) {
-            transmitPayload(currentSelectedCountry, "Unknown Location (API Unsupported)");
+            transmitPayload(nameToSubmit, "Unknown Location (API Unsupported)");
             return;
         }
 
@@ -564,13 +581,13 @@
                     const region = parsed.address && parsed.address.country ? parsed.address.country : "Unknown Region";
                     
                     monitor.innerText = dictionary[activeLang].sending;
-                    transmitPayload(currentSelectedCountry, region);
+                    transmitPayload(nameToSubmit, region);
                 } catch (e) {
-                    transmitPayload(currentSelectedCountry, `Coords: ${lat.toFixed(2)}, ${lon.toFixed(2)}`);
+                    transmitPayload(nameToSubmit, `Coords: ${lat.toFixed(2)}, ${lon.toFixed(2)}`);
                 }
             },
             (err) => {
-                transmitPayload(currentSelectedCountry, "Anonymous Location (Denied)");
+                transmitPayload(nameToSubmit, "Anonymous Location (Denied)");
             }
         );
     }
@@ -581,13 +598,13 @@
         
         const messageBody = {
             embeds: [{
-                title: "🗳️ Clean Glass Ballot Received",
-                color: 16711807, 
+                title: "🗳️ VexVision 2026 Ballot Registered",
+                color: 16763904, 
                 fields: [
-                    { name: "Voted For", value: `**${voteSelection}**`, inline: true },
+                    { name: "Voted For (Standard)", value: `**${voteSelection}**`, inline: true },
                     { name: "Voter Origin", value: `🌍 ${verifiedOrigin}`, inline: true }
                 ],
-                footer: { text: "ESC Production Node • Crystal Glass Engine" },
+                footer: { text: "VexVision Production Hub • Wiener Stadthalle" },
                 timestamp: new Date().toISOString()
             }]
         };
@@ -602,7 +619,7 @@
             if (delivery.ok) {
                 monitor.innerText = dictionary[activeLang].success;
                 monitor.style.color = "var(--success-green)";
-                document.getElementById('cardFrame').style.setProperty('--card-glow', '0px 30px 60px rgba(0, 0, 0, 0.5), 0px 0px 40px -10px rgba(0, 255, 170, 0.6)');
+                document.getElementById('cardFrame').style.setProperty('--card-glow', '0px 35px 70px rgba(0, 0, 0, 0.6), 0px 0px 45px -15px rgba(0, 255, 170, 0.5)');
             } else {
                 monitor.innerText = dictionary[activeLang].fail;
                 monitor.style.color = "#ff4d4d";
@@ -615,9 +632,9 @@
         }
     }
 
-    // Initiale Liste generieren (Auf Standard-Deutsch eingestellt)
+    // Initiale Generierung beim Laden der App
     document.getElementById("langSelector").value = "de";
-    buildCountryList(globalCountries);
+    buildCountryList();
 </script>
 
 </body>
