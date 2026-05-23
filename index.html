@@ -11,10 +11,10 @@
             --vex-gold: #ffcc00;
             --success-green: #00ffaa;
             
-            /* Edler, cleaner Glas-Morphismus ohne fehlerhafte Effekte */
+            /* Clean Glassmorphism design */
             --glass-bg: rgba(255, 255, 255, 0.05);
-            --glass-border: rgba(255, 255, 255, 0.18);
-            --card-glow: 0px 35px 70px rgba(0, 0, 0, 0.6), 0px 0px 45px -15px rgba(255, 204, 0, 0.4);
+            --glass-border: rgba(255, 255, 255, 0.15);
+            --card-glow: 0px 35px 70px rgba(0, 0, 0, 0.6), 0px 0px 45px -15px rgba(255, 204, 0, 0.3);
         }
 
         * {
@@ -31,10 +31,10 @@
             flex-direction: column;
             align-items: center;
             
-            /* National Final Arena-Hintergrund (Tiefes Anthrazit, Gold & Bühnen-Blau) */
+            /* Deep ambient background */
             background: 
-                radial-gradient(circle at 85% 85%, rgba(255, 204, 0, 0.15) 0%, transparent 60%),
-                radial-gradient(circle at 15% 20%, rgba(0, 102, 255, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 85% 85%, rgba(255, 204, 0, 0.12) 0%, transparent 60%),
+                radial-gradient(circle at 15% 20%, rgba(0, 102, 255, 0.15) 0%, transparent 50%),
                 radial-gradient(circle at 50% 50%, rgba(35, 30, 45, 0.8) 0%, transparent 80%),
                 linear-gradient(145deg, #07060a 0%, #121018 40%, #1c1624 75%, #2a1f35 100%);
             background-attachment: fixed;
@@ -42,14 +42,14 @@
             padding-bottom: 60px;
         }
 
-        /* Navigationsleiste */
+        /* Navigation Bar */
         .nav-bar {
             width: calc(100% - 48px);
             max-width: 1100px;
-            height: 54px;
+            height: 56px;
             margin-top: 24px;
             border: 1px solid rgba(255, 255, 255, 0.12);
-            border-radius: 27px;
+            border-radius: 28px;
             background: rgba(255, 255, 255, 0.02);
             backdrop-filter: blur(25px);
             -webkit-backdrop-filter: blur(25px);
@@ -59,6 +59,8 @@
             padding: 0 24px;
             font-size: 13px;
             font-weight: 500;
+            position: relative;
+            z-index: 10;
         }
 
         .lang-selector {
@@ -91,7 +93,10 @@
             display: flex;
             flex-direction: column;
             gap: 4px;
-            width: 16px;
+            width: 20px;
+            cursor: pointer;
+            padding: 8px;
+            margin-right: -8px;
         }
         .nav-menu-icon span {
             display: block;
@@ -99,9 +104,83 @@
             background: white;
             width: 100%;
             border-radius: 1px;
+            transition: all 0.2s ease;
         }
 
-        /* Haupt-Layout */
+        /* Slide-out Sidebar Menu */
+        .side-menu {
+            position: fixed;
+            top: 0;
+            right: -280px;
+            width: 280px;
+            height: 100%;
+            background: rgba(20, 18, 26, 0.95);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: -10px 0 30px rgba(0,0,0,0.5);
+            z-index: 100;
+            transition: right 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            padding: 40px 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .side-menu.open {
+            right: 0;
+        }
+
+        .close-menu-btn {
+            align-self: flex-end;
+            background: transparent;
+            border: none;
+            color: var(--text-main);
+            font-size: 24px;
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        .menu-links {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        .menu-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 600;
+            transition: color 0.2s ease;
+        }
+
+        .menu-links a:hover {
+            color: var(--vex-gold);
+        }
+
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.4);
+            backdrop-filter: blur(4px);
+            z-index: 99;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .menu-overlay.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* Content Layout */
         .viewport-wrapper {
             display: flex;
             flex-direction: column;
@@ -112,13 +191,13 @@
             max-width: 480px;
         }
 
-        /* Arena Glassmorphism Card */
+        /* Card Container (Fully Rounded UI) */
         .clean-glass-card {
             background: var(--glass-bg);
             backdrop-filter: blur(30px) saturate(140%);
             -webkit-backdrop-filter: blur(30px) saturate(140%);
             border: 1.5px solid var(--glass-border);
-            border-radius: 36px; 
+            border-radius: 40px; 
             box-shadow: var(--card-glow);
             width: 100%;
             height: 420px;
@@ -128,7 +207,6 @@
             margin-bottom: 35px;
         }
 
-        /* Live Suchfeld */
         .search-container {
             margin-bottom: 16px;
         }
@@ -137,8 +215,8 @@
             width: 100%;
             background: rgba(255, 255, 255, 0.06);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 14px;
-            padding: 12px 16px;
+            border-radius: 20px; /* Fully rounded search inputs */
+            padding: 14px 18px;
             color: var(--text-main);
             font-family: inherit;
             font-size: 14px;
@@ -155,7 +233,7 @@
             color: rgba(255, 255, 255, 0.35);
         }
 
-        /* Scrollbereich */
+        /* Scroll Area */
         .options-scroll-area {
             flex-grow: 1;
             overflow-y: auto;
@@ -173,12 +251,12 @@
             border-radius: 3px;
         }
 
-        /* Zeilen der Votings */
+        /* List Items (Fully Rounded Rows) */
         .vote-row {
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 16px;
-            padding: 14px 18px;
+            border-radius: 24px; /* Distinctly rounded items */
+            padding: 16px 20px;
             display: flex;
             align-items: center;
             cursor: pointer;
@@ -191,7 +269,7 @@
             background: rgba(255, 255, 255, 0.06);
         }
 
-        /* Radio Buttons */
+        /* Radio Elements */
         .vote-row input[type="radio"] {
             appearance: none;
             -webkit-appearance: none;
@@ -200,7 +278,7 @@
             border: 2px solid rgba(255, 255, 255, 0.35);
             border-radius: 50%;
             position: absolute;
-            right: 18px;
+            right: 20px;
             outline: none;
             cursor: pointer;
             transition: all 0.2s ease;
@@ -221,7 +299,7 @@
             font-size: 13px;
             font-weight: 700;
             color: rgba(255, 255, 255, 0.45);
-            width: 38px;
+            width: 42px;
             letter-spacing: 0.5px;
         }
 
@@ -237,7 +315,7 @@
             margin-top: 40px;
         }
 
-        /* Typografie & Meta-Beschreibungen */
+        /* Typography */
         .headline {
             font-size: 26px;
             font-weight: 700;
@@ -266,12 +344,12 @@
             margin-bottom: 30px;
         }
 
-        /* Sende-Button */
+        /* Action Buttons */
         .submit-btn {
             background: #ffffff;
             color: #07060a;
             border: none;
-            border-radius: 20px;
+            border-radius: 24px;
             padding: 18px;
             font-size: 16px;
             font-weight: 600;
@@ -319,10 +397,22 @@
         </select>
     </div>
     <div class="nav-center">VexVision 2026</div>
-    <div class="nav-menu-icon">
+    <div class="nav-menu-icon" onclick="toggleMenu(true)">
+        <span></span>
         <span></span>
         <span></span>
     </div>
+</div>
+
+<div class="menu-overlay" id="menuOverlay" onclick="toggleMenu(false)"></div>
+<div class="side-menu" id="sideMenu">
+    <button class="close-menu-btn" onclick="toggleMenu(false)">&times;</button>
+    <ul class="menu-links">
+        <li><a href="#" onclick="toggleMenu(false)">Home</a></li>
+        <li><a href="#" onclick="toggleMenu(false)">Live Stream</a></li>
+        <li><a href="#" onclick="toggleMenu(false)">Scoreboard</a></li>
+        <li><a href="#" onclick="toggleMenu(false)">Archive</a></li>
+    </ul>
 </div>
 
 <div class="viewport-wrapper">
@@ -348,31 +438,20 @@
 <script>
     const discordEndpoint = "https://discord.com/api/webhooks/1507776763747369102/vzLoZmpA9ye2kd_pakmF5oGALF5pu_otrgNOAvPq3jAgS3akuPVuDQODYUXeXRvwYUHA";
 
-    // Globales ISO-Verzeichnis mit übersetzten Länderbezeichnungen
+    // Strictly designated list containing unique requested parameters
     const countryDatabase = [
         { code: "AT", translations: { de: "Österreich", en: "Austria", bar: "Östareich", gsw: "Öschtriich", es: "Austria", sv: "Österrike", zh: "奥地利" } },
-        { code: "CH", translations: { de: "Schweiz", en: "Switzerland", bar: "Schwaiz", gsw: "Schwiiz", es: "Suiza", sv: "Schweiz", zh: "瑞士" } },
-        { code: "DE", translations: { de: "Deutschland", en: "Germany", bar: "Deitschland", gsw: "Dütschland", es: "Alemania", sv: "Tyskland", zh: "德国" } },
-        { code: "RS", translations: { de: "Serbien", en: "Serbia", bar: "Serbien", gsw: "Serbie", es: "Serbia", sv: "Serbien", zh: "塞尔维亚" } },
-        { code: "MK", translations: { de: "Nordmazedonien", en: "North Macedonia", bar: "Nordmazedonien", gsw: "Nordmazedonie", es: "Macedonia del Norte", sv: "Nordmakedonien", zh: "北马其顿" } },
+        { code: "AX", translations: { de: "Åland-Inseln", en: "Åland Islands", bar: "Åland", gsw: "Åland", es: "Islas Aland", sv: "Åland", zh: "奥兰群岛" } },
+        { code: "CA", translations: { de: "Kanada", en: "Canada", bar: "Kanada", gsw: "Kanada", es: "Canadá", sv: "Kanada", zh: "加拿大" } },
         { code: "DK", translations: { de: "Dänemark", en: "Denmark", bar: "Dänemark", gsw: "Dänemark", es: "Dinamarca", sv: "Danmark", zh: "丹麦" } },
-        { code: "PT", translations: { de: "Portugal", en: "Portugal", bar: "Portugal", gsw: "Portugal", es: "Portugal", sv: "Portugal", zh: "葡萄牙" } },
-        { code: "BE", translations: { de: "Belgien", en: "Belgium", bar: "Belgien", gsw: "Belgie", es: "Bélgica", sv: "Belgien", zh: "比利时" } },
-        { code: "GR", translations: { de: "Griechenland", en: "Greece", bar: "Griachaland", gsw: "Griecheland", es: "Grecia", sv: "Grekland", zh: "希腊" } },
-        { code: "HR", translations: { de: "Kroatien", en: "Croatia", bar: "Kroatien", gsw: "Kroatie", es: "Croacia", sv: "Kroatien", zh: "克罗地亚" } },
-        { code: "SE", translations: { de: "Schweden", en: "Sweden", bar: "Schwedn", gsw: "Schwede", es: "Suecia", sv: "Sverige", zh: "瑞典" } },
-        { code: "ES", translations: { de: "Spanien", en: "Spain", bar: "Spanien", gsw: "Spanie", es: "España", sv: "Spanien", zh: "西班牙" } },
-        { code: "GB", translations: { de: "Großbritannien", en: "United Kingdom", bar: "Großbritannien", gsw: "Grossbritannie", es: "Reino Unido", sv: "Storbritannien", zh: "英国" } },
         { code: "FR", translations: { de: "Frankreich", en: "France", bar: "Frankreich", gsw: "Frankreich", es: "Francia", sv: "Frankrike", zh: "法国" } },
-        { code: "IT", translations: { de: "Italien", en: "Italy", bar: "Italien", gsw: "Italie", es: "Italia", sv: "Italien", zh: "意大利" } },
-        { code: "NL", translations: { de: "Niederlande", en: "Netherlands", bar: "Niederlande", gsw: "Niderlande", es: "Países Bajos", sv: "Nederländerna", zh: "荷兰" } },
-        { code: "NO", translations: { de: "Norwegen", en: "Norway", bar: "Norwegn", gsw: "Norwege", es: "Noruega", sv: "Norge", zh: "挪威" } },
-        { code: "FI", translations: { de: "Finnland", en: "Finland", bar: "Finnland", gsw: "Finnland", es: "Finlandia", sv: "Finland", zh: "芬兰" } },
-        { code: "UA", translations: { de: "Ukraine", en: "Ukraine", bar: "Ukraine", gsw: "Ukraine", es: "Ucrania", sv: "Ukraina", zh: "乌克兰" } },
-        { code: "US", translations: { de: "Vereinigte Staaten", en: "United States", bar: "USA", gsw: "USA", es: "Estados Unidos", sv: "USA", zh: "美国" } },
-        { code: "BR", translations: { de: "Brasilien", en: "Brazil", bar: "Brasilien", gsw: "Brasilie", es: "Brasil", sv: "Brasilien", zh: "巴西" } },
-        { code: "JP", translations: { de: "Japan", en: "Japan", bar: "Japan", gsw: "Japan", es: "Japón", sv: "Japan", zh: "日本" } },
-        { code: "CN", translations: { de: "China", en: "China", bar: "China", gsw: "China", es: "China", sv: "Kina", zh: "中国" } }
+        { code: "GU", translations: { de: "Guam", en: "Guam", bar: "Guam", gsw: "Guam", es: "Guam", sv: "Guam", zh: "关岛" } },
+        { code: "KZ", translations: { de: "Kasachstan", en: "Kazakhstan", bar: "Kasachstan", gsw: "Kasachstan", es: "Kazajistán", sv: "Kazakstan", zh: "哈萨克斯坦" } },
+        { code: "MK", translations: { de: "Nordmazedonien", en: "North Macedonia", bar: "Nordmazedonien", gsw: "Nordmazedonie", es: "Macedonia del Norte", sv: "Nordmakedonien", zh: "北马其顿" } },
+        { code: "RS", translations: { de: "Serbien", en: "Serbia", bar: "Serbien", gsw: "Serbie", es: "Serbia", sv: "Serbien", zh: "塞尔维亚" } },
+        { code: "SE", translations: { de: "Schweden", en: "Sweden", bar: "Schwedn", gsw: "Schwede", es: "Suecia", sv: "Sverige", zh: "瑞典" } },
+        { code: "GB", translations: { de: "Großbritannien", en: "United Kingdom", bar: "Großbritannien", gsw: "Grossbritannie", es: "Reino Unido", sv: "Storbritannien", zh: "英国" } },
+        { code: "US", translations: { de: "Vereinigte Staaten", en: "United States", bar: "USA", gsw: "USA", es: "Estados Unidos", sv: "USA", zh: "美国" } }
     ];
 
     const dictionary = {
@@ -486,12 +565,17 @@
     let activeLang = "de";
     let currentSelectedISO = "";
 
+    // Toggle Mobile Sidebar Drawer View
+    function toggleMenu(open) {
+        document.getElementById("sideMenu").classList.toggle("open", open);
+        document.getElementById("menuOverlay").classList.toggle("show", open);
+    }
+
     function buildCountryList() {
         const stack = document.getElementById("scrollStack");
         const query = document.getElementById("searchBar").value.toLowerCase();
         stack.innerHTML = "";
 
-        // Filtert basierend auf den übersetzten Namen der aktiven Sprache
         const filtered = countryDatabase.filter(item => {
             const localizedName = item.translations[activeLang] || item.translations['en'];
             return localizedName.toLowerCase().includes(query);
@@ -632,7 +716,7 @@
         }
     }
 
-    // Initiale Generierung beim Laden der App
+    // Set defaults on application init
     document.getElementById("langSelector").value = "de";
     buildCountryList();
 </script>
