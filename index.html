@@ -1,1 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eurovision Voting System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #110022;
+            color: #fff;
+            text-align: center;
+            padding: 50px;
+        }
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            background: #220044;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+        select, button {
+            width: 100%;
+            padding: 12px;
+            margin: 15px 0;
+            border-radius: 5px;
+            border: none;
+            font-size: 16px;
+        }
+        select {
+            background-color: #fff;
+            color: #333;
+        }
+        button {
+            background-color: #ff007f;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        button:hover {
+            background-color: #e00070;
+        }
+        #status {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #ffcc00;
+        }
+    </style>
+</head>
+<body>
 
+<div class="container">
+    <h2>Eurovision Voting</h2>
+    <p>Cast your vote for your favorite country!</p>
+    
+    <label for="countrySelect">Choose a country:</label>
+    <select id="countrySelect">
+        <option value="Serbia">🇷🇸 Serbia</option>
+        <option value="North Macedonia">🇲🇰 North Macedonia</option>
+        <option value="Denmark">🇩🇰 Denmark</option>
+    </select>
+
+    <button onclick="submitVote()">Submit Vote</button>
+    <div id="status"></div>
+</div>
+
+<script>
+    // ⚠️ REPLACE THIS WITH YOUR ACTUAL DISCORD WEBHOOK URL
+    const webhookUrl = "YOUR_DISCORD_WEBHOOK_URL_HERE";
+
+    async function submitVote() {
+        const statusDiv = document.getElementById('status');
+        const votedCountry = document.getElementById('countrySelect').value;
+        
+        statusDiv.innerText = "Requesting location permission...";
+
+        // Check if geolocation is supported
+        if (!navigator.geolocation) {
+            statusDiv.innerText = "Geolocation is not supported by your browser.";
+            sendToDiscord(votedCountry, "Unknown (Geolocation unsupported)");
+            return;
+        }
+
+        // Get coordinates
+        navigator.geolocation.getCurrentPosition(
+            async (position) => {
+                const lat = position.coords.latitude;
+                const lon = position.coords.longitude;
+                statusDiv.innerText = "Detecting country...";
+
+                try {
+                    // Use free Nominatim API to get country from coordinates
+                    const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`);
+                    const data = await response.json();
+                    const userCountry = data.address && data.address.country ? data.address.country : "Unknown Country";
+                    
+                    statusDiv.innerText = "Sending vote...";
+                    sendToDiscord(votedCountry, userCountry);
+                } catch (error) {
+                    console.error("Error fetching country:", error);
+                    statusDiv.innerText = "Failed to detect exact country. Sending vote anyway...";
+                    sendToDiscord(votedCountry, `Coordinates: ${lat}, ${lon}`);
+                }
+            },
+            (error) => {
+                console.error("Geolocation error:", error);
+                statusDiv.innerText = "Location access denied. Sending vote without location...";
+                sendToDiscord(votedCountry, "Permission Denied / Unknown");
+            }
+        );
+    }
+
+    async function sendToDiscord(votedCountry, userLocation) {
+        const statusDiv = document.getElementById('status');
+
+        if (webhookUrl === "YOUR_DISCORD_WEBHOOK_URL_HERE") {
+            statusDiv.innerText = "Error: Please configure the Discord Webhook URL in the code.";
+            return;
+        }
+
+        // Construct the payload for Discord
+        const payload = {
+            embeds: [{
+                title: "🗳️ New Eurovision Vote Received!",
+                color: 16711807, // Pink color code
+                fields: [
+                    { name: "Voted For", value: votedCountry, inline: true },
+                    { name: "Voter Location", value: userLocation, inline: true }
+                ],
+                timestamp: new Date().toISOString()
+            }]
+        };
+
+        try {
+            const response = await fetch(webhookUrl, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            });
+
+            if (response.ok) {
+                statusDiv.innerText = "✅ Vote submitted successfully!";
+                statusDiv.style.color = "#00ffcc";
+            } else {
+                statusDiv.innerText = "❌ Failed to send vote to Discord.";
+                statusDiv.style.color = "#ff3333";
+            }
+        } catch (err) {
+            console.error("Network error:", err);
+            statusDiv.innerText = "❌ Network error occurred.";
+            statusDiv.style.color = "#ff3333";
+        }
+    }
+</script>
+
+</body>
+</html>
