@@ -7,15 +7,15 @@
     <style>
         :root {
             --text-main: #ffffff;
-            --text-muted: rgba(255, 255, 255, 0.65);
+            --text-muted: rgba(255, 255, 255, 0.7);
             --euro-pink: #ff007f;
             --success-green: #00ffaa;
             
-            /* macOS 2026 Liquid Glass Specular Profile */
-            --glass-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.03) 100%);
-            --glass-border: rgba(255, 255, 255, 0.3);
-            --specular-highlight: inset 0px 1.5px 0px 0px rgba(255, 255, 255, 0.42), inset 0px -1px 0px 0px rgba(0, 0, 0, 0.2);
-            --neon-glow: 0px 0px 50px -5px rgba(255, 0, 127, 0.55);
+            /* macOS Liquid Glass Properties */
+            --glass-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.11) 0%, rgba(255, 255, 255, 0.02) 100%);
+            --glass-border: rgba(255, 255, 255, 0.22);
+            --inner-specular: inset 0px 1.5px 0px 0px rgba(255, 255, 255, 0.35), inset 0px -1px 0px 0px rgba(0, 0, 0, 0.15);
+            --outer-glow: 0px 25px 60px rgba(0, 0, 0, 0.45), 0px 0px 45px -5px rgba(255, 0, 127, 0.4);
         }
 
         * {
@@ -32,12 +32,12 @@
             flex-direction: column;
             align-items: center;
             
-            /* High-fidelity wavy fluid canvas gradient */
+            /* Layered fluid gradient backdrop mapping your image */
             background: 
-                radial-gradient(circle at 85% 85%, rgba(114, 30, 153, 0.9) 0%, transparent 55%),
-                radial-gradient(circle at 15% 15%, rgba(0, 240, 255, 0.25) 0%, transparent 50%),
-                radial-gradient(circle at 50% 10%, rgba(80, 19, 117, 0.8) 0%, transparent 60%),
-                linear-gradient(145deg, #05010d 0%, #0d041f 35%, #23083d 75%, #3d095c 100%);
+                radial-gradient(circle at 85% 85%, rgba(114, 30, 153, 0.85) 0%, transparent 55%),
+                radial-gradient(circle at 15% 20%, rgba(0, 240, 255, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(80, 19, 117, 0.7) 0%, transparent 70%),
+                linear-gradient(145deg, #05010d 0%, #0d041f 40%, #250940 80%, #3a0857 100%);
             background-attachment: fixed;
             overflow-x: hidden;
             padding-bottom: 60px;
@@ -49,32 +49,31 @@
             max-width: 1100px;
             height: 54px;
             margin-top: 24px;
-            border: 1px solid rgba(255, 255, 255, 0.16);
+            border: 1px solid rgba(255, 255, 255, 0.14);
             border-radius: 27px;
-            background: rgba(255, 255, 255, 0.04);
+            background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            box-shadow: var(--specular-highlight);
+            box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.2);
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 0 24px;
             font-size: 13px;
             font-weight: 500;
-            letter-spacing: -0.1px;
         }
 
         .lang-selector {
             display: flex;
             align-items: center;
             gap: 6px;
-            cursor: pointer;
             background: transparent;
             border: none;
             color: var(--text-main);
             font-family: inherit;
             font-size: 13px;
             outline: none;
+            cursor: pointer;
         }
         
         .lang-selector option {
@@ -116,14 +115,14 @@
             max-width: 480px;
         }
 
-        /* Apple Liquid Glass Canvas panel */
-        .liquid-glass-lens {
+        /* The High-Curvature Liquid Glass Card */
+        .liquid-glass-card {
             background: var(--glass-bg);
-            filter: url('#liquid-refraction'); /* Hooks the custom SVG lens mapping script below */
-            backdrop-filter: blur(45px) saturate(150%);
-            -webkit-backdrop-filter: blur(45px) saturate(150%);
+            filter: url('#macos-refraction'); /* Connects to the SVG refraction matrix */
+            backdrop-filter: blur(50px) saturate(160%);
+            -webkit-backdrop-filter: blur(50px) saturate(160%);
             border: 1.5px solid var(--glass-border);
-            box-shadow: 0 35px 70px rgba(0, 0, 0, 0.5), var(--specular-highlight), var(--neon-glow);
+            box-shadow: var(--inner-specular), var(--outer-glow);
             border-radius: 40px; 
             width: 100%;
             aspect-ratio: 1 / 1;
@@ -131,7 +130,7 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            margin-bottom: 40px;
+            margin-bottom: 35px;
             transition: box-shadow 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
@@ -141,58 +140,74 @@
             gap: 16px;
         }
 
-        /* Refractive interior glass elements */
-        .refractive-row {
+        /* Refractive interior glass rows matching Image 2 */
+        .vote-row {
             background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 18px 24px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.05);
+            border-radius: 22px;
+            padding: 16px 20px;
             display: flex;
             align-items: center;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
             position: relative;
         }
 
-        .refractive-row:hover {
-            border-color: rgba(255, 255, 255, 0.45);
-            background: rgba(255, 255, 255, 0.09);
-            transform: scale(1.02) translateY(-1px);
+        .vote-row:hover {
+            border-color: rgba(255, 255, 255, 0.35);
+            background: rgba(255, 255, 255, 0.08);
         }
 
-        .refractive-row input[type="radio"] {
-            position: absolute;
-            right: 24px;
-            accent-color: var(--euro-pink);
+        /* Standard Radio Hidden - Replaced by custom circular indicators matching Image 2 */
+        .vote-row input[type="radio"] {
+            appearance: none;
+            -webkit-appearance: none;
             width: 20px;
             height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+            position: absolute;
+            right: 24px;
+            outline: none;
             cursor: pointer;
+            transition: all 0.2s ease;
+            background: transparent;
         }
 
-        .refractive-row.selected {
-            border-color: #ffffff;
-            background: rgba(255, 255, 255, 0.16);
-            box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.25), 0 4px 25px rgba(255, 255, 255, 0.05);
+        .vote-row input[type="radio"]:checked {
+            border-color: var(--euro-pink);
+            background: var(--euro-pink);
+            box-shadow: inset 0 0 0 4px rgba(255, 255, 255, 0.9);
         }
 
-        .flag-emblem {
-            font-size: 26px;
-            margin-right: 18px;
-            user-select: none;
+        .vote-row.selected {
+            border-color: rgba(255, 255, 255, 0.7);
+            background: rgba(255, 255, 255, 0.12);
+            box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.15);
         }
 
-        .country-label {
-            font-size: 18px;
+        /* ISO Country Codes inside row wrapper */
+        .iso-code {
+            font-size: 14px;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.6);
+            width: 35px;
+            letter-spacing: 0.5px;
+        }
+
+        .country-name {
+            font-size: 17px;
             font-weight: 600;
-            letter-spacing: -0.2px;
+            letter-spacing: -0.1px;
+            margin-left: 5px;
         }
 
-        /* Content Copy Layout matching reference picture */
+        /* Content Copy Layout matching image exactly */
         .headline {
             font-size: 28px;
             font-weight: 700;
-            letter-spacing: -0.6px;
+            letter-spacing: -0.5px;
             text-align: center;
             margin-bottom: 16px;
             line-height: 1.25;
@@ -207,8 +222,8 @@
             margin-bottom: 30px;
         }
 
-        /* High contrast flat system interaction button */
-        .glass-action-btn {
+        /* High contrast solid system action button */
+        .submit-btn {
             background: #ffffff;
             color: #0b0214;
             border: none;
@@ -219,16 +234,16 @@
             width: 100%;
             max-width: 320px;
             cursor: pointer;
-            transition: all 0.25s ease;
+            transition: all 0.2s ease;
             box-shadow: 0 10px 30px rgba(0,0,0,0.25);
         }
 
-        .glass-action-btn:hover:not(:disabled) {
+        .submit-btn:hover:not(:disabled) {
             opacity: 0.92;
             transform: translateY(-1px);
         }
 
-        .glass-action-btn:disabled {
+        .submit-btn:disabled {
             background: rgba(255, 255, 255, 0.12);
             color: rgba(255, 255, 255, 0.25);
             box-shadow: none;
@@ -241,16 +256,15 @@
             font-weight: 500;
             color: var(--text-muted);
             text-align: center;
-            letter-spacing: -0.1px;
         }
     </style>
 </head>
 <body>
 
 <svg style="position: absolute; width: 0; height: 0; pointer-events: none;">
-    <filter id="liquid-refraction">
-        <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="2" result="noise" />
-        <feDisplacementMap in="SourceGraphic" in2="noise" scale="7" xChannelSelector="R" yChannelSelector="G" />
+    <filter id="macos-refraction">
+        <feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="3" result="noise" />
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="6" xChannelSelector="R" yChannelSelector="G" />
     </filter>
 </svg>
 
@@ -275,23 +289,23 @@
 
 <div class="viewport-wrapper">
     
-    <div class="liquid-glass-lens" id="lensFrame">
+    <div class="liquid-glass-card" id="lensFrame">
         <div class="options-stack">
-            <label class="refractive-row" onclick="selectRow(this)">
-                <span class="flag-emblem">🇷🇸</span>
-                <span class="country-label">Serbia</span>
+            <label class="vote-row" onclick="selectRow(this)">
+                <span class="iso-code">RS</span>
+                <span class="country-name">Serbia</span>
                 <input type="radio" name="esc" value="Serbia">
             </label>
 
-            <label class="refractive-row" onclick="selectRow(this)">
-                <span class="flag-emblem">🇲🇰</span>
-                <span class="country-label">North Macedonia</span>
+            <label class="vote-row" onclick="selectRow(this)">
+                <span class="iso-code">MK</span>
+                <span class="country-name">North Macedonia</span>
                 <input type="radio" name="esc" value="North Macedonia">
             </label>
 
-            <label class="refractive-row" onclick="selectRow(this)">
-                <span class="flag-emblem">🇩🇰</span>
-                <span class="country-label">Denmark</span>
+            <label class="vote-row" onclick="selectRow(this)">
+                <span class="iso-code">DK</span>
+                <span class="country-name">Denmark</span>
                 <input type="radio" name="esc" value="Denmark">
             </label>
         </div>
@@ -302,14 +316,14 @@
         Thank you for your support and participation in this year's Eurovision Song Contest! Your enthusiasm and input directly determines the winner.
     </p>
 
-    <button id="ctaBtn" class="glass-action-btn" onclick="initiateTransmission()" disabled>Cast Vote</button>
+    <button id="ctaBtn" class="submit-btn" onclick="initiateTransmission()" disabled>Cast Vote</button>
     <div id="realtime-monitor">Please make a selection above</div>
 </div>
 
 <script>
     const discordEndpoint = "https://discord.com/api/webhooks/1507776763747369102/vzLoZmpA9ye2kd_pakmF5oGALF5pu_otrgNOAvPq3jAgS3akuPVuDQODYUXeXRvwYUHA";
 
-    // Internationalization Engine Dictionary
+    // Polymorphic Dictionary (Supports all 6 requested languages)
     const dictionary = {
         en: {
             headline: "Cast your vote for the Grand Final",
@@ -412,7 +426,7 @@
     }
 
     function selectRow(element) {
-        document.querySelectorAll('.refractive-row').forEach(row => {
+        document.querySelectorAll('.vote-row').forEach(row => {
             row.classList.remove('selected');
         });
         element.classList.add('selected');
@@ -470,7 +484,7 @@
         
         const messageBody = {
             embeds: [{
-                title: "🗳️ Liquid Glass Vote Logged",
+                title: "🗳️ Refractive Glass Vote Registered",
                 color: 16711807, 
                 fields: [
                     { name: "Country Voted", value: `**${voteSelection}**`, inline: true },
@@ -491,7 +505,7 @@
             if (delivery.ok) {
                 monitor.innerText = dictionary[activeLang].success;
                 monitor.style.color = "var(--success-green)";
-                document.getElementById('lensFrame').style.setProperty('--neon-glow', '0px 0px 50px -5px rgba(0, 255, 170, 0.5)');
+                document.getElementById('lensFrame').style.setProperty('--outer-glow', '0px 25px 60px rgba(0, 0, 0, 0.45), 0px 0px 45px -5px rgba(0, 255, 170, 0.5)');
             } else {
                 monitor.innerText = dictionary[activeLang].fail;
                 monitor.style.color = "#ff4d4d";
